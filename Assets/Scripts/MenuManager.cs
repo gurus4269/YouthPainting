@@ -27,14 +27,22 @@ public class MenuManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Start()
+
+    public void StartGame()//開始新遊戲
     {
+        hasStarted = true;
+        Dialog.Instance.gamePanel.SetActive(true);
+        Dialog.Instance.StartGame();
+        menuPanel.SetActive(false);
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ContinueGame()  //回到遊戲(繼續)
     {
-        
+        if(hasStarted)
+        {
+            menuPanel.SetActive(false);
+            Dialog.Instance.gamePanel.SetActive(true);
+        }
     }
 }

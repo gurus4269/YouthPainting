@@ -17,7 +17,7 @@ public class SaveLoadManager : MonoBehaviour
     public GameObject saveButtonPrefab; //儲存按鈕的預製體
     public Transform saveLoadButtonParent;    //存放儲存按鈕的容器
     //public GameObject gamePanel;    //用來截圖的
-    private int saveIndex = 1;
+    private int saveIndex = Constants.INITIAL_SAVE_INDEX;
 
     private bool isSave;    //Save or Load
     //private readonly int totalSlots = Constant
@@ -36,22 +36,10 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ShowSaveLoadUI(bool save)   //顯示Save(1) or Load(0)
     {
         isSave = save;
-        panelTitle.text = isSave ? "SAVE" : "LOAD" ;
+        panelTitle.text = isSave ? Constants.SAVE_TITLE : Constants.LOAD_TITLE ;
         saveLoadPanel.SetActive(true);
         if(isSave)
             plusButton.gameObject.SetActive(true);
@@ -79,14 +67,14 @@ public class SaveLoadManager : MonoBehaviour
             var contentsText = newButtonObj.transform.Find("Contents")?.GetComponent<TMP_Text>();
             if (contentsText != null)
             {
-                contentsText.text = $"Save_File_{saveIndex}";
+                contentsText.text = $"{Constants.SAVE_PREFIX}{saveIndex}";
             }
 
             // 設定時間
             var timeStampText = newButtonObj.transform.Find("TimeStamp")?.GetComponent<TMP_Text>();
             if (timeStampText != null)
             {
-                timeStampText.text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                timeStampText.text = DateTime.Now.ToString(Constants.TIMESTAMP_FORMAT);
             }
 
             // 設定截圖
@@ -124,12 +112,5 @@ public class SaveLoadManager : MonoBehaviour
     {
         saveLoadPanel.SetActive(false);
     }
-    public void OnClickSave()       //顯示Save事件
-    {
-        ShowSaveLoadUI(true);
-    }
-    public void OnClickLoad()       //顯示Load事件
-    {
-        ShowSaveLoadUI(false);
-    }
+    
 }
