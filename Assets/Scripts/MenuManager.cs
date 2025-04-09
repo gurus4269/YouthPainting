@@ -45,4 +45,9 @@ public class MenuManager : MonoBehaviour
             Dialog.Instance.gamePanel.SetActive(true);
         }
     }
+    public void LoadGame()
+    {
+        hasStarted = true;
+        SaveLoadManager.Instance.OnClickLoad();
+    }
 }
