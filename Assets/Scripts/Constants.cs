@@ -29,4 +29,6 @@ public class Constants
     public const string SCENE_MENU = "MenuScene";
     public const string SCENE_GAME = "GameScene";
     public const string SCENE_SAVELOAD = "SaveLoadScene";
+    public const string SCENE_HISTORY = "HistoryScene";
+    public const string SCENE_SETTING = "SettingScene";
 }

@@ -1,31 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting.Antlr3.Runtime;
 using System.IO;
-using System.Xml;
 using UnityEngine.SceneManagement;
 
 
 public class SaveLoadManager : MonoBehaviour
 {
-    //public GameObject saveLoadPanel;    //保存頁面
     public TextMeshProUGUI panelTitle;  //Save or Load 大文字
     public List<Button> saveLoadButtons = new List<Button>();    //存檔按鈕(們)
     public Button returnButton;         //返回按鈕
     public Button plusButton;           //新增存檔欄位按鈕
     public GameObject saveButtonPrefab; //儲存按鈕的預製體
     public Transform saveLoadButtonParent;    //存放儲存按鈕的容器
-    // private int saveIndex = Constants.INITIAL_SAVE_INDEX;   //存檔序號
     private string saveFolderPath;      //存檔路徑
-    //private byte[] screenshotData;      //儲存截圖資料
-
-    //private bool isSave;    //Save or Load
-    //private readonly int totalSlots = Constant
 
     public static SaveLoadManager Instance { get; private set;} //單例模式
 
@@ -59,7 +49,6 @@ public class SaveLoadManager : MonoBehaviour
     {
         GameMaster.Instance.isSave = save;  
         panelTitle.text = GameMaster.Instance.isSave ? Constants.SAVE_TITLE : Constants.LOAD_TITLE ;
-        //saveLoadPanel.SetActive(true);
         if(GameMaster.Instance.isSave)  //Save有添加按鈕
         {
             plusButton.gameObject.SetActive(true);
@@ -125,7 +114,7 @@ public class SaveLoadManager : MonoBehaviour
             string savePath = Path.Combine(saveFolderPath, fileName);       //路徑 + 黨名 + 序號
 
             string json = JsonUtility.ToJson(saveData, true); // true 表示格式化（縮排）
-            File.WriteAllText(savePath, json);
+            File.WriteAllText(savePath, json);  //寫檔
 
             GameMaster.Instance.saveIndex++;
         }
@@ -188,10 +177,10 @@ public class SaveLoadManager : MonoBehaviour
                     screenShotImage.sprite = sprite;
                 }
 
-                string pathCopy = file; // 避免閉包錯誤
+                string pathCopy = file; // 賦予按鈕監聽事件，按下去讀檔
                 newButton.onClick.AddListener(() =>
                 {
-                    LoadGameFromFile(pathCopy);
+                    LoadGameFromFile(pathCopy); 
                 });
 
             }

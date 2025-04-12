@@ -5,15 +5,12 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    //public GameObject menuPanel;    //開始頁面
     public Button newGameButton;    //New Game按鈕
     public Button continueButton;   //Continue按鈕
     public Button loadGameButton;   //Load Game按鈕
     public Button settingButton;    //Setting按鈕
     public Button exitButton;       //Exit按鈕
-    //private bool hasStarted = false;    //判斷是否已經開始(1)，未開始(0)
-    
-    // Start is called before the first frame update
+
     public static MenuManager Instance { get; private set;} //單例模式
 
     private void Awake()
@@ -31,22 +28,26 @@ public class MenuManager : MonoBehaviour
     
     public void StartGame()//開始新遊戲
     {
-        GameMaster.Instance.hasStarted = true;
+        GameMaster.Instance.hasStarted = true; 
         GameMaster.Instance.LoadGameScene(0);
         
     }
 
     public void ContinueGame()  //回到遊戲(繼續)
     {
-        if(GameMaster.Instance.hasStarted == true)
+        if(GameMaster.Instance.hasStarted == true)  //若沒有開始過，則禁止進入
         {
             GameMaster.Instance.LoadGameScene(GameMaster.Instance.currentSpeakingContentID) ;
         }
     }
-    public void LoadGame()
+    public void LoadGame()  //跳轉到SaveLoadScene
     {   
         GameMaster.Instance.hasStarted = true;
         GameMaster.Instance.isSave = false;
         GameMaster.Instance.LoadSaveLoadScene();
+    }
+    public void Setting()  //跳轉到SaveLoadScene
+    {   
+        GameMaster.Instance.LoadSettingScene();
     }
 }

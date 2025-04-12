@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Chinese
   m_EditorClassIdentifier: 
-  hashCode: -2069564183
+  hashCode: -2069564161
   material: {fileID: -915457804701030430}
-  materialHashCode: -1991642967
+  materialHashCode: -1249500161
   m_Version: 1.1.0
   m_SourceFontFileGUID: 0502bbb27199caa46b08942a627cffbd
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 0502bbb27199caa46b08942a627cffbd, type: 3}

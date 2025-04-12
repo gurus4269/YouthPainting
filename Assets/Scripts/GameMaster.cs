@@ -26,10 +26,7 @@ public class GameMaster : MonoBehaviour
     public bool hasStarted = false;    //判斷是否已經開始(1)，未開始(0) from MenuManager
 
     //from SaveLoad
-    //public TextMeshProUGUI panelTitle;  //Save or Load 大文字
     public bool isSave;     //1 -> save, 0 -> load 
-    //public ScreenShotter screenShotter;     //照相機(用來截圖)
-    
     public int saveIndex = Constants.INITIAL_SAVE_INDEX;   //存檔序號
 
     public static GameMaster Instance { get; private set;} //單例模式
@@ -50,10 +47,7 @@ public class GameMaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //SceneManager.LoadScene(Constants.SCENE_MENU);
         dialogDataFile = Resources.Load<TextAsset>(Constants.STORY_PATH);
-        //Camera mainCam = Camera.main;
-        //Dialog.Instance.screenShotter = mainCam.GetComponent<ScreenShotter>();
     }
     // Update is called once per frame
     void Update()
@@ -69,7 +63,10 @@ public class GameMaster : MonoBehaviour
     {
         SceneManager.LoadScene(Constants.SCENE_MENU);
     } 
-
+    public void LoadSettingScene()     //-> Menu      Home按鈕用
+    {
+        SceneManager.LoadScene(Constants.SCENE_SETTING);
+    }
     public void LoadSaveLoadScene()  //-> SaveLoad  Load按鈕、LoadGame按鈕用
     {
         lastSceneName = SceneManager.GetActiveScene().name; // 記錄當前場景
@@ -111,6 +108,4 @@ public class GameMaster : MonoBehaviour
         SaveLoadManager.Instance.LoadAllSaveSlots();
     }
 
-    
-    
 }

@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f2946809f5fb7459c5ca79502b65f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastSceneName: 
   dialogDataFile: {fileID: 0}
   currentSpeakingContent: 
   currentSpeakingContentID: 0
@@ -312,11 +313,10 @@ MonoBehaviour:
   - 
   - 
   - 
+  timeStamp: 
+  screenshotData: 
   hasStarted: 0
   isSave: 0
-  saveFolderPath: 
-  screenShotter: {fileID: 0}
-  screenshotData: 
   saveIndex: 1
 --- !u!1 &184275558
 GameObject:
@@ -1960,7 +1960,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1694157878}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1912924363}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: Setting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1694157878
 MonoBehaviour:
   m_ObjectHideFlags: 0
