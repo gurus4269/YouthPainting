@@ -5,17 +5,6 @@ public class Constants
     //劇本路徑
     public const string STORY_PATH = "Text/Test";   //劇本
 
-
-    //人物立繪路徑
-    // public const string BLACK_KITE = "Character/Black kite";   //黑鳶
-    // public const string RED_SPARROW = "Character/Red sparrow";   //紅雀
-    // public const string COVER_GIRL = "Character/Title";     //封面人物    
-
-    // //背景圖片路徑
-    // public const string A = "Background/Test_A";    //背景1
-    // public const string B = "Background/Test_B";    //背景2
-
-
     //讀取文件用的符號
     public const string DIALOG = "#";       //一般對話
     public const string CHOICE = "&";       //選項
@@ -35,4 +24,9 @@ public class Constants
     //UI文字
     public const string SAVE_TITLE = "SAVE";    //儲存字樣
     public const string LOAD_TITLE = "LOAD";    //載入字樣
+
+    //場景
+    public const string SCENE_MENU = "MenuScene";
+    public const string SCENE_GAME = "GameScene";
+    public const string SCENE_SAVELOAD = "SaveLoadScene";
 }

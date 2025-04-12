@@ -3,6 +3,11 @@ using System;
 [Serializable] // Unity 內建 JSON 儲存用
 public class SaveData
 {
-    public string currentSpeakingContent; // 存對話內容
-    public byte[] screenshotData;         // 存截圖資料（PNG byte 陣列）
+    public int saveCurrentSpeakingContentID;    //最後一句對話ID
+    public string saveCurrentSpeakingContent;   //最後一句對話
+    public string saveCurrentBackground;    //最後的背景
+    public bool saveCurrentFilter;  //最後的回憶濾鏡
+    public string[] saveCurrentPositions = new string[5];   //相對應的角色位置
+    public string saveTimeStamp;    //年月日時分秒
+    public byte[] saveScreenshotData;   //畫面截圖
 }

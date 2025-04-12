@@ -9,27 +9,28 @@ using System.IO;
 
 public class Dialog : MonoBehaviour
 {
-    public static TextAsset dialogDataFile; //對話文件(.csv)
+    //public static TextAsset dialogDataFile; //對話文件(.csv)
     public CharacterSlot leftSlot, middleLeftSlot, middleSlot, middleRightSlot, rightSlot;  //角色圖像放的位置
     private Dictionary<int, CharacterSlot> positionSlots = new Dictionary<int, CharacterSlot>();    //角色圖像放的位置字典
-    public TMP_Text nameText, dialogText;    //角色名字文件、對話內容文件
+    public TMP_Text nameText, dialogText;    //對話框中的角色名字欄位、對話內容欄位
     public Button next;     //下一步按鈕
     public GameObject choice;   //選項按鈕預製體
     public Transform choiceGroup;   //放選項的區域
     public BackGroundSlot backgroundSlot;   //背景圖片放置區
-    public GameObject gamePanel;    //遊戲畫面
+    //public GameObject gamePanel;    //遊戲畫面
     public GameObject settingUI, textUI;    //側邊按鈕, 下方對話框
+    public ScreenShotter screenShotter;     //照相機(用來截圖)
 
-    //以下用作存檔
+    // //以下用作存檔
     public int dialogIndex = Constants.DIALOGINDEX;    //當前的對話行數
-    public string currentSpeakingContent;  //目前對話內容(針對有對話的句子)
-    public int currentSpeakingContentID;  //目前對話內容序號
-    public string currentBackground;    //目前背景
-    public bool currentFilter;  //目前有沒有添加回憶濾鏡
-    public string[] positions = new string[5];  //儲存5個位置的人
+    // public string currentSpeakingContent;  //目前對話內容(針對有對話的句子)
+    // public int currentSpeakingContentID;  //目前對話內容序號
+    // public string currentBackground;    //目前背景
+    // public bool currentFilter;  //目前有沒有添加回憶濾鏡
+    // public string[] positions = new string[5];  //儲存5個位置的人
     
 
-    //到這邊
+    // //到這邊
 
     public List<Sprite> sprites = new List<Sprite>();    //角色圖片列表
     private Dictionary<string, Sprite> imageDic= new Dictionary<string, Sprite>();  //角色圖片字典
@@ -40,8 +41,8 @@ public class Dialog : MonoBehaviour
 
     private void Awake() 
     {
-        dialogDataFile = Resources.Load<TextAsset>(Constants.STORY_PATH);
-        if (dialogDataFile == null)
+        GameMaster.Instance.dialogDataFile = Resources.Load<TextAsset>(Constants.STORY_PATH);
+        if (GameMaster.Instance.dialogDataFile == null)
             Debug.LogError("找不到對話檔案！");
         
         LoadCharacterSprites();    // 載入角色圖
@@ -68,31 +69,32 @@ public class Dialog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        leftSlot.Clear();   //所有位置的圖片都先設成透明
-        middleLeftSlot.Clear();
-        middleSlot.Clear();
-        middleRightSlot.Clear();
-        rightSlot.Clear();
+        LoadGame(GameMaster.Instance.currentSpeakingContentID);
+        if(GameMaster.Instance.currentSpeakingContentID != 0)
+        {
+            //➤ 還原背景與濾鏡
+            UpdateBackGroundImage(GameMaster.Instance.currentBackground, GameMaster.Instance.currentFilter);
+
+            //➤ 還原角色圖（依位置）
+            for (int i = 0; i < GameMaster.Instance.positions.Length; i++)
+            {
+                string name = GameMaster.Instance.positions[i];
+                if (!string.IsNullOrEmpty(name))
+                {
+                    UpdateImage(name, i);
+                }
+            }
+        }
+        Camera mainCam = Camera.main;
+        screenShotter = mainCam.GetComponent<ScreenShotter>();
     }
     // Update is called once per frame
     void Update()
     {
-        if(gamePanel.activeSelf && Input.GetMouseButtonDown(0)) //點擊事件：如果現在TextUI以及Setting被關掉，則打開他們
+        if(Input.GetMouseButtonDown(0)) //點擊事件：如果現在TextUI以及Setting被關掉，則打開他們
         {
             OpenUI();
         }
-    }
-    public void StartGame() //透過調用來執行新遊戲
-    {
-        leftSlot.Clear();   //所有位置的圖片都先設成透明
-        middleLeftSlot.Clear();
-        middleSlot.Clear();
-        middleRightSlot.Clear();
-        rightSlot.Clear();
-
-        ReadText(dialogDataFile);   //讀劇本
-        dialogIndex = Constants.DIALOGINDEX;    //初始化行號
-        ShowDialogRow();    //讀下一行
     }
 
     public void LoadGame(int loadId) //透過調用來執行存檔遊戲
@@ -103,7 +105,7 @@ public class Dialog : MonoBehaviour
         middleRightSlot.Clear();
         rightSlot.Clear();
 
-        ReadText(dialogDataFile);   //讀劇本
+        ReadText(GameMaster.Instance.dialogDataFile);   //讀劇本
         dialogIndex = loadId;    //初始化行號
         ShowDialogRow();    //讀下一行
     }
@@ -123,7 +125,7 @@ public class Dialog : MonoBehaviour
         ClearCharacter(_place, _name);  // 清理不同配置的圖
         CharacterNoSame( _name );       //不同位置的相同圖
         
-        positions[_place] = _name;
+        GameMaster.Instance.positions[_place] = _name;
 
         // 顯示角色圖片
         if (positionSlots.ContainsKey(_place))
@@ -140,8 +142,8 @@ public class Dialog : MonoBehaviour
             return;
         }
 
-        currentBackground = _bgKey;
-        currentFilter = _isMemory;
+        GameMaster.Instance.currentBackground = _bgKey;
+        GameMaster.Instance.currentFilter = _isMemory;
 
         backgroundSlot.SetBackground(backGroundDic[_bgKey], _isMemory);
     }
@@ -160,8 +162,8 @@ public class Dialog : MonoBehaviour
                 UpdateImage(cells[2], int.Parse(cells[3]));     
                 UpdateText(cells[2], cells[4]);
 
-                currentSpeakingContent = cells[4];  //儲存最後一句對話(針對有對話的句子)
-                currentSpeakingContentID = int.Parse(cells[1]);  //儲存最後一句對話 
+                GameMaster.Instance.currentSpeakingContent = cells[4];  //儲存最後一句對話(針對有對話的句子)
+                GameMaster.Instance.currentSpeakingContentID = int.Parse(cells[1]);  //儲存最後一句對話 
 
                 dialogIndex = int.Parse(cells[5]);  //下一行的序號
                 break;
@@ -181,10 +183,12 @@ public class Dialog : MonoBehaviour
                 middleRightSlot.Clear();
                 rightSlot.Clear();
                 UpdateBackGroundImage(bgKey, isMemory);
+                for (int j = 0; j < GameMaster.Instance.positions.Length; j++)
+                {
+                    GameMaster.Instance.positions[j] = null;
+                }
 
-                dialogIndex++; // 自動下一行
-                ShowDialogRow();
-                break;
+                dialogIndex = int.Parse(cells[5]);  //下一行的序號
             }
             else if(cells[0] == Constants.END && int .Parse(cells[1]) == dialogIndex) //結束
             {
@@ -208,8 +212,7 @@ public class Dialog : MonoBehaviour
     }
     public void OnclickHome()   //返回開始畫面
     {
-        gamePanel.SetActive(false); //關掉遊戲panel
-        MenuManager.Instance.menuPanel.SetActive(true); //開啟menu panel
+        GameMaster.Instance.LoadMenuScene();
     }
 
     public void GenerateChoice(int _index)  //生成選項
@@ -249,19 +252,19 @@ public class Dialog : MonoBehaviour
         if( _pos % 2 == 0)  //左中右三邊配置
         {
             middleRightSlot.Clear();
-            positions[3] = null;
+            GameMaster.Instance.positions[3] = null;
             middleLeftSlot.Clear();
-            positions[1] = null;
+            GameMaster.Instance.positions[1] = null;
             
         }
         else    //中左、中右雙邊配置
         {
             leftSlot.Clear();
-            positions[0] = null;
+            GameMaster.Instance.positions[0] = null;
             middleSlot.Clear();
-            positions[2] = null;
+            GameMaster.Instance.positions[2] = null;
             rightSlot.Clear();
-            positions[4] = null;
+            GameMaster.Instance.positions[4] = null;
         }
     }
     public void CharacterNoSame(string _name)   //避免同人出現在不同位置
@@ -269,7 +272,7 @@ public class Dialog : MonoBehaviour
         Sprite targetSprite = imageDic[_name];
 
         // 用 sprite.name 比對，避免引用地址不同但圖片一樣
-        for (int i = 0; i < positions.Length; i++)
+        for (int i = 0; i < GameMaster.Instance.positions.Length; i++)
         {
             if (positionSlots.ContainsKey(i))
             {
@@ -277,7 +280,7 @@ public class Dialog : MonoBehaviour
                 if (slot.characterImage != null && slot.characterImage.sprite != null && slot.characterImage.sprite.name == targetSprite.name)
                 {
                     slot.Clear();
-                    positions[i] = null;
+                    GameMaster.Instance.positions[i] = null;
                 }
             }
         }
@@ -301,5 +304,13 @@ public class Dialog : MonoBehaviour
             //Debug.Log($"已載入背景圖：{sprite.name}");
         }
     }
-    
+    public void LoadLoadScene()  //進入存檔介面
+    {   
+        GameMaster.Instance.isSave = false;
+        GameMaster.Instance.LoadSaveLoadScene();
+    }
+    public void LoadSaveScene()  //進入存檔介面
+    { 
+        GameMaster.Instance.OnClickSave();
+    }
 }

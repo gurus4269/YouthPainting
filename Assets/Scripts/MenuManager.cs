@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    public GameObject menuPanel;    //開始頁面
+    //public GameObject menuPanel;    //開始頁面
     public Button newGameButton;    //New Game按鈕
     public Button continueButton;   //Continue按鈕
     public Button loadGameButton;   //Load Game按鈕
     public Button settingButton;    //Setting按鈕
     public Button exitButton;       //Exit按鈕
-    private bool hasStarted = false;    //判斷是否已經開始(1)，未開始(0)
+    //private bool hasStarted = false;    //判斷是否已經開始(1)，未開始(0)
     
     // Start is called before the first frame update
     public static MenuManager Instance { get; private set;} //單例模式
@@ -28,26 +28,25 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    
     public void StartGame()//開始新遊戲
     {
-        hasStarted = true;
-        Dialog.Instance.gamePanel.SetActive(true);
-        Dialog.Instance.StartGame();
-        menuPanel.SetActive(false);
+        GameMaster.Instance.hasStarted = true;
+        GameMaster.Instance.LoadGameScene(0);
         
     }
 
     public void ContinueGame()  //回到遊戲(繼續)
     {
-        if(hasStarted)
+        if(GameMaster.Instance.hasStarted == true)
         {
-            menuPanel.SetActive(false);
-            Dialog.Instance.gamePanel.SetActive(true);
+            GameMaster.Instance.LoadGameScene(GameMaster.Instance.currentSpeakingContentID) ;
         }
     }
     public void LoadGame()
-    {
-        hasStarted = true;
-        SaveLoadManager.Instance.OnClickLoad();
+    {   
+        GameMaster.Instance.hasStarted = true;
+        GameMaster.Instance.isSave = false;
+        GameMaster.Instance.LoadSaveLoadScene();
     }
 }

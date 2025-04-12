@@ -8,11 +8,10 @@ public class CharacterSlot : MonoBehaviour
     public Image characterImage;
 
     [Header("淡入時間（秒）")]
-    public float fadeInDuration = 0.3f;
+    public float fadeInDuration = 0f;
 
     private Coroutine fadeCoroutine;
-
-    
+        
     public void SetCharacter(Sprite sprite) // 顯示角色圖片，並淡入顯示
     {
         if (characterImage == null || sprite == null)
@@ -22,10 +21,8 @@ public class CharacterSlot : MonoBehaviour
         }
 
         characterImage.sprite = sprite;
-
         
-        SetAlpha(0f);   // 先讓圖片完全透明
-
+        SetAlpha(1f);   // 先讓圖片完全透明
         
         if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);    // 啟動淡入動畫
         fadeCoroutine = StartCoroutine(FadeIn());
@@ -35,6 +32,8 @@ public class CharacterSlot : MonoBehaviour
     public void Clear() // 清除角色圖片（將圖片變成透明）
     {
         if (characterImage == null) return;
+
+        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
 
         characterImage.sprite = null;
         SetAlpha(0f); // 保持圖片物件啟用，只是透明
