@@ -1430,7 +1430,7 @@ RectTransform:
   m_Father: {fileID: 1180392492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1682,6 +1682,7 @@ MonoBehaviour:
   - 
   - 
   timeStamp: 
+  historyList: []
   screenshotData: 
   hasStarted: 0
   isSave: 0
@@ -2129,7 +2130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &978471253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3434,9 +3435,9 @@ RectTransform:
   m_Father: {fileID: 1191588078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1528858024
 MonoBehaviour:
@@ -4021,9 +4022,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1744996067}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1890.38, y: -140}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1951237975
@@ -4214,13 +4215,15 @@ MonoBehaviour:
   next: {fileID: 1747586142}
   choice: {fileID: 4079924544056745082, guid: e20c854881ce0a049bf054e711fdae72, type: 3}
   choiceGroup: {fileID: 746637684}
+  historyContent: {fileID: 9100808993026683327, guid: d5ec5f452b37e5042a041d38b3cfe8ac, type: 3}
+  historyContentGroup: {fileID: 1043619059}
   backgroundSlot: {fileID: 1379119049}
   settingUI: {fileID: 371188855}
   textUI: {fileID: 1699407375}
   screenShotter: {fileID: 519420033}
   dialogIndex: 0
-  GamePanel: {fileID: 1430011122}
-  HistoryPanel: {fileID: 978471252}
+  gamePanel: {fileID: 1430011122}
+  historyPanel: {fileID: 978471252}
   sprites: []
   backGroundSprites: []
 --- !u!1660057539 &9223372036854775807

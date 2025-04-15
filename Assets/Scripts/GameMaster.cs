@@ -19,6 +19,7 @@ public class GameMaster : MonoBehaviour
     public bool currentFilter = false;  //目前有沒有添加回憶濾鏡
     public string[] positions = new string[5];  //儲存5個位置的人
     public string timeStamp;    //時間戳記
+    public List<string> historyList = new List<string>();   //前X行的歷史紀錄
     public byte[] screenshotData;   //圖片(截圖)資訊
     //到這邊
 
@@ -67,6 +68,10 @@ public class GameMaster : MonoBehaviour
     {
         SceneManager.LoadScene(Constants.SCENE_SETTING);
     }
+    public void LoadGalleryScene()     //-> Gallery     Home按鈕用
+    {
+        SceneManager.LoadScene(Constants.SCENE_GALLERY);
+    }
     public void LoadSaveLoadScene()  //-> SaveLoad  Load按鈕、LoadGame按鈕用
     {
         lastSceneName = SceneManager.GetActiveScene().name; // 記錄當前場景
@@ -82,14 +87,12 @@ public class GameMaster : MonoBehaviour
         currentFilter = _newSave.saveCurrentFilter;
         positions = _newSave.saveCurrentPositions;
         timeStamp = _newSave.saveTimeStamp;    //年月日時分秒
+        historyList = _newSave.saveHistoryList;     //歷史紀錄
         screenshotData = _newSave.saveScreenshotData;   //畫面截圖
 
         LoadGameScene(currentSpeakingContentID);
     }
 
-    //from SaveLoadManager
-    
-    
     public void OnClickSave()       //顯示Save面板
     {
         Dialog.Instance.OnclickCloseUI();   //關閉右側設定欄以及下方對話框

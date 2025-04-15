@@ -107,6 +107,7 @@ public class SaveLoadManager : MonoBehaviour
                 saveCurrentFilter = GameMaster.Instance.currentFilter,  //最後的濾鏡
                 saveCurrentPositions = GameMaster.Instance.positions,   //所有位置上的人
                 saveTimeStamp = timeStampText.text,     //年月日時分秒
+                saveHistoryList = GameMaster.Instance.historyList,  //前X行的歷史紀錄
                 saveScreenshotData = GameMaster.Instance.screenshotData //遊戲畫面截圖
             };
 

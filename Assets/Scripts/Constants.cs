@@ -20,15 +20,16 @@ public class Constants
     public const string TIMESTAMP_FORMAT = "yyyy/MM/dd HH:mm:ss";   //存檔的時間格式
     public const string SAVE_FILE_PATH = "Saves";
     public const string SAVE_EXTENSION = ".json"; 
+    public const int HISTORYLINES = 50;
 
     //UI文字
     public const string SAVE_TITLE = "SAVE";    //儲存字樣
     public const string LOAD_TITLE = "LOAD";    //載入字樣
 
     //場景
-    public const string SCENE_MENU = "MenuScene";
-    public const string SCENE_GAME = "GameScene";
-    public const string SCENE_SAVELOAD = "SaveLoadScene";
-    public const string SCENE_HISTORY = "HistoryScene";
-    public const string SCENE_SETTING = "SettingScene";
+    public const string SCENE_MENU = "MenuScene";   //首頁
+    public const string SCENE_GAME = "GameScene";   //主要遊戲畫面
+    public const string SCENE_SAVELOAD = "SaveLoadScene";   //存檔頁面
+    public const string SCENE_SETTING = "SettingScene";     //設定頁面
+    public const string SCENE_GALLERY = "GalleryScene";     //畫廊頁面
 }

@@ -12,16 +12,16 @@ public class Dialog : MonoBehaviour
     public Button next;     //下一步按鈕
     public GameObject choice;   //選項按鈕預製體
     public Transform choiceGroup;   //放選項的區域
+    public GameObject historyContent;   //歷史對話預製體
+    public Transform historyContentGroup;   //放歷史對話預製體的地方
     public BackGroundSlot backgroundSlot;   //背景圖片放置區
     public GameObject settingUI, textUI;    //側邊按鈕, 下方對話框
     public ScreenShotter screenShotter;     //照相機(用來截圖)
     public int dialogIndex = Constants.DIALOGINDEX;    //當前的對話行數
 
-    public GameObject GamePanel;    //遊戲畫面
-    public GameObject HistoryPanel; //歷史對話紀錄畫面
+    public GameObject gamePanel;    //遊戲畫面
+    public GameObject historyPanel; //歷史對話紀錄畫面
     
-
-
     public List<Sprite> sprites = new List<Sprite>();    //角色圖片列表
     private Dictionary<string, Sprite> imageDic= new Dictionary<string, Sprite>();  //角色圖片字典
     public List<Sprite> backGroundSprites = new List<Sprite>();    //背景圖片列表
@@ -79,8 +79,8 @@ public class Dialog : MonoBehaviour
         Camera mainCam = Camera.main;   
         screenShotter = mainCam.GetComponent<ScreenShotter>();
 
-        HistoryPanel.SetActive(false);
-        GamePanel.SetActive(true);
+        historyPanel.SetActive(false);
+        gamePanel.SetActive(true);
     }
     // Update is called once per frame
     void Update()
@@ -155,9 +155,27 @@ public class Dialog : MonoBehaviour
             {
                 UpdateImage(cells[2], int.Parse(cells[3]));     
                 UpdateText(cells[2], cells[4]);
-
+                
+                //存檔用
                 GameMaster.Instance.currentSpeakingContent = cells[4];  //儲存最後一句對話(針對有對話的句子)
                 GameMaster.Instance.currentSpeakingContentID = int.Parse(cells[1]);  //儲存最後一句對話 
+
+                //歷史紀錄用
+                if(GameMaster.Instance.historyList.Count > Constants.HISTORYLINES)  //如果裡面行數大於設定的數
+                {
+                    GameMaster.Instance.historyList.RemoveAt(0);    //移除最前面多餘的
+                }
+                GameMaster.Instance.historyList.Add(cells[4]);
+                if(GameMaster.Instance.historyList.Count >= 2)
+                {
+                    if(GameMaster.Instance.historyList[^1] == GameMaster.Instance.historyList[^2])
+                    {
+                        GameMaster.Instance.historyList.RemoveAt(GameMaster.Instance.historyList.Count - 1);  //新增歷史紀錄到list
+                    }
+                }
+                
+                // GameObject history = Instantiate(historyContent, historyContentGroup);   //將歷史紀錄預製體加入到群組中
+                // history.GetComponent<TMP_Text>().text = cells[4];   //給選項添加文字
 
                 dialogIndex = int.Parse(cells[5]);  //下一行的序號
                 break;
@@ -222,15 +240,24 @@ public class Dialog : MonoBehaviour
                 (
                     delegate 
                     { 
-                        OnChoiceClick(int.Parse(cells[5]));
+                        OnChoiceClick(int.Parse(cells[5]), cells[4]);
                     } 
                 );    
             GenerateChoice( _index + 1 );
         }
         
     }
-    public void OnChoiceClick(int _id)  //選項觸發事件(跳到回答的那行)
+    public void OnChoiceClick(int _id, string _content)  //選項觸發事件(跳到回答的那行)
     {
+        //歷史紀錄部分
+        if(GameMaster.Instance.historyList.Count > Constants.HISTORYLINES)  //如果裡面行數大於設定的數
+        {
+            GameMaster.Instance.historyList.RemoveAt(0);    //移除最前面多餘的
+        }
+        GameMaster.Instance.historyList.Add(_content);  //新增歷史紀錄到list
+        // GameObject history = Instantiate(historyContent, historyContentGroup);   //將歷史紀錄預製體加入到群組中
+        // history.GetComponent<TMP_Text>().text = _content;   //給選項添加文字
+
         dialogIndex = _id;
         ShowDialogRow();
         for (int i = 0; i < choiceGroup.childCount ; i++)   //消除選項
@@ -238,6 +265,7 @@ public class Dialog : MonoBehaviour
             Destroy(choiceGroup.GetChild(i).gameObject);
         }
         next.gameObject.SetActive(true);
+
     }
     // public void OptionEffect(string _effect, int _param, string _target) //之後再設計效果
     // {
@@ -311,12 +339,22 @@ public class Dialog : MonoBehaviour
     }
     public void EnterHistoryPanel()  //進入History Panel
     { 
-        GamePanel.SetActive(false);
-        HistoryPanel.SetActive(true);
+        gamePanel.SetActive(false);
+        for (int i = 0; i < historyContentGroup.childCount ; i++)   //消除原紀錄
+        {
+            Destroy(historyContentGroup.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < GameMaster.Instance.historyList.Count; i++)
+        {
+            GameObject history = Instantiate(historyContent, historyContentGroup);   //將歷史紀錄預製體加入到群組中
+            history.GetComponent<TMP_Text>().text = GameMaster.Instance.historyList[i];   //給選項添加文字
+        }
+        historyPanel.SetActive(true);
+
     }
     public void BackToGameScene()  //進入History Panel
     { 
-        HistoryPanel.SetActive(false);
-        GamePanel.SetActive(true);
+        historyPanel.SetActive(false);
+        gamePanel.SetActive(true);
     }
 }

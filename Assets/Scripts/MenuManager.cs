@@ -29,6 +29,7 @@ public class MenuManager : MonoBehaviour
     public void StartGame()//開始新遊戲
     {
         GameMaster.Instance.hasStarted = true; 
+        GameMaster.Instance.historyList.Clear();
         GameMaster.Instance.LoadGameScene(0);
         
     }
@@ -49,5 +50,9 @@ public class MenuManager : MonoBehaviour
     public void Setting()  //跳轉到SaveLoadScene
     {   
         GameMaster.Instance.LoadSettingScene();
+    }
+    public void Gallery()  //跳轉到GalleryScene
+    {   
+        GameMaster.Instance.LoadGalleryScene();
     }
 }
