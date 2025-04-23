@@ -3,11 +3,13 @@ using UnityEngine;
 public class Constants
 {
     //劇本路徑
-    public const string STORY_PATH = "Text/Test";   //劇本
+    public const string STORY_PATH = "Text/YouthPaintingChapter1";   //劇本
 
     //讀取文件用的符號
     public const string DIALOG = "#";       //一般對話
     public const string CHOICE = "&";       //選項
+    public const string WAIT = "$";         //等待
+    public const string NARRATION = "*";    //旁白
     public const string BACKGROUND = "@";   //更改背景符號
     public const string END = "END";        //結束符號
 

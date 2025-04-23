@@ -108,24 +108,32 @@ public class Dialog : MonoBehaviour
         nameText.text = _name;  //把人物名字放進 namebar
         dialogText.text = _text;    //把對話放進 dialogbar
     }
-    public void UpdateImage(string _name, int _place)   //更新人物立繪
+    public void UpdateTextOnly(string _text) //只更新對話
     {
-        if (!imageDic.ContainsKey(_name))   //防呆
+        dialogText.text = _text;    //把對話放進 dialogbar
+    }
+    public void UpdateImage(string _name, int _place)   //更新人物立繪
+    {   
+        if(_place != 5)
         {
-            Debug.LogWarning($"角色 {_name} 不存在於 imageDic 中！");
-            return;
-        }
+            if (!imageDic.ContainsKey(_name))   //防呆
+            {
+                Debug.LogWarning($"角色 {_name} 不存在於 imageDic 中！");
+                return;
+            }
 
-        ClearCharacter(_place, _name);  // 清理不同配置的圖
-        CharacterNoSame( _name );       //不同位置的相同圖
+            ClearCharacter(_place, _name);  // 清理不同配置的圖
+            CharacterNoSame( _name );       //不同位置的相同圖
+            
+            GameMaster.Instance.positions[_place] = _name;
+
+            // 顯示角色圖片
+            if (positionSlots.ContainsKey(_place))
+            {
+                positionSlots[_place].SetCharacter(imageDic[_name]);
+            }
+        }
         
-        GameMaster.Instance.positions[_place] = _name;
-
-        // 顯示角色圖片
-        if (positionSlots.ContainsKey(_place))
-        {
-            positionSlots[_place].SetCharacter(imageDic[_name]);
-        }
     }
 
     public void UpdateBackGroundImage(string _bgKey, bool _isMemory = false)    //更新背景
@@ -133,6 +141,7 @@ public class Dialog : MonoBehaviour
         if (!backGroundDic.ContainsKey(_bgKey))     //防呆
         {
             Debug.LogWarning($"背景圖片 {_bgKey} 不存在！");
+            backgroundSlot.SetBackground(backGroundDic["title"], _isMemory); //更新背景
             return;
         }
 
@@ -207,6 +216,40 @@ public class Dialog : MonoBehaviour
             else if(cells[0] == Constants.END && int .Parse(cells[1]) == dialogIndex) //結束
             {
                 Debug.Log("劇情結束");
+            }
+            else if(cells[0] == Constants.WAIT && int .Parse(cells[1]) == dialogIndex) //$等待
+            {
+                Debug.Log("實現等待功能");
+                dialogIndex = int.Parse(cells[5]);  //下一行的序號
+                break;
+            }
+            else if(cells[0] == Constants.NARRATION && int .Parse(cells[1]) == dialogIndex) //旁白
+            {
+                UpdateTextOnly(cells[4]);
+
+                //存檔用
+                GameMaster.Instance.currentSpeakingContent = cells[4];  //儲存最後一句對話(針對有對話的句子)
+                GameMaster.Instance.currentSpeakingContentID = int.Parse(cells[1]);  //儲存最後一句對話 
+
+                //歷史紀錄用
+                if(GameMaster.Instance.historyList.Count > Constants.HISTORYLINES)  //如果裡面行數大於設定的數
+                {
+                    GameMaster.Instance.historyList.RemoveAt(0);    //移除最前面多餘的
+                }
+                GameMaster.Instance.historyList.Add(cells[4]);
+                if(GameMaster.Instance.historyList.Count >= 2)
+                {
+                    if(GameMaster.Instance.historyList[^1] == GameMaster.Instance.historyList[^2])
+                    {
+                        GameMaster.Instance.historyList.RemoveAt(GameMaster.Instance.historyList.Count - 1);  //新增歷史紀錄到list
+                    }
+                }
+                
+                // GameObject history = Instantiate(historyContent, historyContentGroup);   //將歷史紀錄預製體加入到群組中
+                // history.GetComponent<TMP_Text>().text = cells[4];   //給選項添加文字
+
+                dialogIndex = int.Parse(cells[5]);  //下一行的序號
+                break;
             }
         }
     }
