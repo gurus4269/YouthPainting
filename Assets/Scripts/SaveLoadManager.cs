@@ -78,7 +78,7 @@ public class SaveLoadManager : MonoBehaviour
             var contentsText = newButtonObj.transform.Find("Contents")?.GetComponent<TMP_Text>();
             if (contentsText != null)
             {
-                contentsText.text = $"{GameMaster.Instance.currentSpeakingContent}";  //名稱 + 序號
+                contentsText.text = TruncateMixedText(GameMaster.Instance.currentSpeakingContent, 14, 12);  //名稱 + 序號
             }
 
             // 設定時間

@@ -416,12 +416,16 @@ public class Dialog : MonoBehaviour
     { 
         if (!isAutoPlaying) //開啟自動播放
         {
+            isSpeedUp = false;
+            autoPlaySpeed = Constants.DIALOGSPEEDSLOW;
             isAutoPlaying = true;   //開啟自動播放
             next.gameObject.SetActive(false);   //關閉下一步按鈕
             autoPlayCoroutine = StartCoroutine(AutoPlayRoutine());  //啟動自動播放
         }
         else    //關閉自動播放
         {
+            isSpeedUp = false;
+            autoPlaySpeed = Constants.DIALOGSPEEDSLOW;
             isAutoPlaying = false;  //關閉自動播放
             next.gameObject.SetActive(true);    //關閉下一步按鈕
             if (autoPlayCoroutine != null)      //若自動播放協程存在
@@ -429,16 +433,6 @@ public class Dialog : MonoBehaviour
                 StopCoroutine(autoPlayCoroutine);   //關閉
                 autoPlayCoroutine = null;           //刪除
             }
-        }
-    }
-
-    private IEnumerator AutoPlayRoutine()
-    {
-        while (true)
-        {
-            ShowDialogRow();    //顯示下一行
-
-            yield return new WaitForSeconds(autoPlaySpeed);
         }
     }
     public void OnclickSpeedUp()
@@ -457,7 +451,23 @@ public class Dialog : MonoBehaviour
                 autoPlaySpeed = Constants.DIALOGSPEEDFAST;
                 Debug.Log("Speed up");
             }
-                
+        }
+        else
+        {
+            isSpeedUp = true;
+            autoPlaySpeed = Constants.DIALOGSPEEDFAST;
+            isAutoPlaying = true;   //開啟自動播放
+            next.gameObject.SetActive(false);   //關閉下一步按鈕
+            autoPlayCoroutine = StartCoroutine(AutoPlayRoutine());  //啟動自動播放
+        }
+    }
+    private IEnumerator AutoPlayRoutine()
+    {
+        while (true)
+        {
+            ShowDialogRow();    //顯示下一行
+
+            yield return new WaitForSeconds(autoPlaySpeed);
         }
     }
 }
