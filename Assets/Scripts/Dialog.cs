@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Burst.CompilerServices;
+using System.Collections;
 //using UnityEngine.UIElements;
 
 public class Dialog : MonoBehaviour
@@ -21,12 +23,17 @@ public class Dialog : MonoBehaviour
 
     public GameObject gamePanel;    //遊戲畫面
     public GameObject historyPanel; //歷史對話紀錄畫面
+    public float autoPlaySpeed = Constants.DIALOGSPEEDSLOW;    //設定自動播放速度
+    public bool isAutoPlaying = false;  //是否在自動播放
+    public bool isSpeedUp = false;  //是否在自動播放
+    private Coroutine autoPlayCoroutine;
     
     public List<Sprite> sprites = new List<Sprite>();    //角色圖片列表
     private Dictionary<string, Sprite> imageDic= new Dictionary<string, Sprite>();  //角色圖片字典
     public List<Sprite> backGroundSprites = new List<Sprite>();    //背景圖片列表
     private Dictionary<string, Sprite> backGroundDic= new Dictionary<string, Sprite>();  //背景圖片字典
     private string[] dialogRows;    //按照行分開的文件
+
     public static Dialog Instance { get; private set;} //單例模式
 
     private void Awake() 
@@ -141,7 +148,7 @@ public class Dialog : MonoBehaviour
         if (!backGroundDic.ContainsKey(_bgKey))     //防呆
         {
             Debug.LogWarning($"背景圖片 {_bgKey} 不存在！");
-            backgroundSlot.SetBackground(backGroundDic["title"], _isMemory); //更新背景
+            backgroundSlot.SetBackground(backGroundDic["title2"], _isMemory); //更新背景
             return;
         }
 
@@ -189,12 +196,16 @@ public class Dialog : MonoBehaviour
                 dialogIndex = int.Parse(cells[5]);  //下一行的序號
                 break;
             }
-            else if(cells[0] == Constants.CHOICE && int .Parse(cells[1]) == dialogIndex) //選項序號
+            else if(cells[0] == Constants.CHOICE && int .Parse(cells[1]) == dialogIndex) //選項
             {
                 next.gameObject.SetActive(false);   //關掉下一步按鈕
                 GenerateChoice(i);  //生成選項1
+                if(isAutoPlaying)   //若正在自動播放，則停止
+                {
+                    OnclickAutoPlay(); // 自動關閉
+                }
             }
-            else if (cells[0] == Constants.BACKGROUND && int.Parse(cells[1]) == dialogIndex) //更改背景
+            else if(cells[0] == Constants.BACKGROUND && int.Parse(cells[1]) == dialogIndex) //更改背景
             {
                 string bgKey = cells[6];    //存人物
                 bool isMemory =  bool.Parse(cells[7]);  //存位置
@@ -216,6 +227,10 @@ public class Dialog : MonoBehaviour
             else if(cells[0] == Constants.END && int .Parse(cells[1]) == dialogIndex) //結束
             {
                 Debug.Log("劇情結束");
+                if(isAutoPlaying)   //若正在自動播放，則停止
+                {
+                    OnclickAutoPlay(); // 自動關閉
+                }
             }
             else if(cells[0] == Constants.WAIT && int .Parse(cells[1]) == dialogIndex) //$等待
             {
@@ -244,9 +259,6 @@ public class Dialog : MonoBehaviour
                         GameMaster.Instance.historyList.RemoveAt(GameMaster.Instance.historyList.Count - 1);  //新增歷史紀錄到list
                     }
                 }
-                
-                // GameObject history = Instantiate(historyContent, historyContentGroup);   //將歷史紀錄預製體加入到群組中
-                // history.GetComponent<TMP_Text>().text = cells[4];   //給選項添加文字
 
                 dialogIndex = int.Parse(cells[5]);  //下一行的序號
                 break;
@@ -399,5 +411,53 @@ public class Dialog : MonoBehaviour
     { 
         historyPanel.SetActive(false);
         gamePanel.SetActive(true);
+    }
+    public void OnclickAutoPlay()  // 點擊自動播放按鈕
+    { 
+        if (!isAutoPlaying) //開啟自動播放
+        {
+            isAutoPlaying = true;   //開啟自動播放
+            next.gameObject.SetActive(false);   //關閉下一步按鈕
+            autoPlayCoroutine = StartCoroutine(AutoPlayRoutine());  //啟動自動播放
+        }
+        else    //關閉自動播放
+        {
+            isAutoPlaying = false;  //關閉自動播放
+            next.gameObject.SetActive(true);    //關閉下一步按鈕
+            if (autoPlayCoroutine != null)      //若自動播放協程存在
+            {
+                StopCoroutine(autoPlayCoroutine);   //關閉
+                autoPlayCoroutine = null;           //刪除
+            }
+        }
+    }
+
+    private IEnumerator AutoPlayRoutine()
+    {
+        while (true)
+        {
+            ShowDialogRow();    //顯示下一行
+
+            yield return new WaitForSeconds(autoPlaySpeed);
+        }
+    }
+    public void OnclickSpeedUp()
+    {
+        if(isAutoPlaying)
+        {
+            if(isSpeedUp)
+            {
+                isSpeedUp = false;
+                autoPlaySpeed = Constants.DIALOGSPEEDSLOW;
+                Debug.Log("Speed down");
+            }
+            else
+            {
+                isSpeedUp = true;
+                autoPlaySpeed = Constants.DIALOGSPEEDFAST;
+                Debug.Log("Speed up");
+            }
+                
+        }
     }
 }

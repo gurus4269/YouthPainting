@@ -317,7 +317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a932bde280be2d841a4b2146ae6da200, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b716b41707cdff4b8fec15e043f3934, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1375,6 +1375,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1721468488}
     m_Modifications:
     - target: {fileID: 3704132811321760605, guid: a3cc74dfafc7d0541bfce00d7f3789e1, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 1239babdf4f4d484285749ca32114d1e, type: 2}
+    - target: {fileID: 3704132811321760605, guid: a3cc74dfafc7d0541bfce00d7f3789e1, type: 3}
       propertyPath: m_fontColor.b
       value: 1
       objectReference: {fileID: 0}
@@ -1387,8 +1391,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3704132811321760605, guid: a3cc74dfafc7d0541bfce00d7f3789e1, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2035388446390116565, guid: 1239babdf4f4d484285749ca32114d1e, type: 2}
+    - target: {fileID: 3704132811321760605, guid: a3cc74dfafc7d0541bfce00d7f3789e1, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704132811321760605, guid: a3cc74dfafc7d0541bfce00d7f3789e1, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7160419956354017348, guid: a3cc74dfafc7d0541bfce00d7f3789e1, type: 3}
       propertyPath: m_fontColor.b

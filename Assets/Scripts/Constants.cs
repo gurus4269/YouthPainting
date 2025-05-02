@@ -15,6 +15,8 @@ public class Constants
 
     //常數
     public const int DIALOGINDEX = 0;   //開始讀取的行數
+    public const float DIALOGSPEEDSLOW = 2f; //慢速換行速度
+    public const float DIALOGSPEEDFAST = 0.2f; //慢速換行速度
 
     //存檔用
     public const string SAVE_PREFIX = "Save_File_";     //存檔的開頭
