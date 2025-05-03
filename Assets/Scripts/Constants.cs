@@ -36,4 +36,6 @@ public class Constants
     public const string SCENE_SAVELOAD = "SaveLoadScene";   //存檔頁面
     public const string SCENE_SETTING = "SettingScene";     //設定頁面
     public const string SCENE_GALLERY = "GalleryScene";     //畫廊頁面
+    public const string SCENE_CHARACTER = "CharacterScene";     //角色介紹頁面
+    public const string SCENE_END = "EndScene";     //結束頁面
 }

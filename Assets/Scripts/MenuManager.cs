@@ -55,4 +55,8 @@ public class MenuManager : MonoBehaviour
     {   
         GameMaster.Instance.LoadGalleryScene();
     }
+    public void Character()  //跳轉到CharacterScene
+    {   
+        GameMaster.Instance.LoadCharacterScene();
+    }
 }

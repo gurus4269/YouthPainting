@@ -72,10 +72,18 @@ public class GameMaster : MonoBehaviour
     {
         SceneManager.LoadScene(Constants.SCENE_GALLERY);
     }
+    public void LoadCharacterScene()     //-> Character    Home按鈕用
+    {
+        SceneManager.LoadScene(Constants.SCENE_CHARACTER);
+    }
     public void LoadSaveLoadScene()  //-> SaveLoad  Load按鈕、LoadGame按鈕用
     {
         lastSceneName = SceneManager.GetActiveScene().name; // 記錄當前場景
         SceneManager.LoadScene(Constants.SCENE_SAVELOAD);
+    }
+    public void LoadEndScene()     //-> End     
+    {
+        SceneManager.LoadScene(Constants.SCENE_END);
     }
 
     //方便當前資料   1.目前對話(有用的對話)  2.該對話的ID    3.目前的背景    4.是否有記憶濾鏡    5.每個位置上的角色 6.時間戳記  7.圖片(截圖)
