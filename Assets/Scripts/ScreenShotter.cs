@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ScreenShotter : MonoBehaviour
 {
+    //可刪掉
     public Texture2D CaptureScreenShot()    //處理拍攝
     {
         int width = Screen.width;   //設定寬高
