@@ -7,6 +7,19 @@ public class CharacterManager : MonoBehaviour
     public GameObject[] characterPanel;     //人物介紹Panel的陣列
     public GameObject All; //主畫面panel
     public int serial;  //畫面序號，對應每個panel
+    public static CharacterManager Instance { get; private set;} //單例模式
+
+    private void Awake()
+    {
+        if(Instance == null)    //刪除多的單例，如果沒有單例，則自己成為單例
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()

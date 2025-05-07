@@ -19,10 +19,8 @@ public class Constants
     public const float DIALOGSPEEDFAST = 0.2f; //慢速換行速度
 
     //存檔用
-    public const string SAVE_PREFIX = "Save_File_";     //存檔的開頭
-    public const int INITIAL_SAVE_INDEX = 1;    //存檔的序號
-    public const string TIMESTAMP_FORMAT = "yyyy/MM/dd HH:mm:ss";   //存檔的時間格式
-    public const string SAVE_FILE_PATH = "Saves";
+    public const string SAVE_FILE_PATH_AUTO = "AutoSave";
+    public const string SAVE_FILE_PATH_CHECKPOINT = "Checkpoint";
     public const string SAVE_EXTENSION = ".json"; 
     public const int HISTORYLINES = 50;
 
@@ -33,7 +31,7 @@ public class Constants
     //場景
     public const string SCENE_MENU = "MenuScene";   //首頁
     public const string SCENE_GAME = "GameScene";   //主要遊戲畫面
-    public const string SCENE_SAVELOAD = "SaveLoadScene";   //存檔頁面
+    public const string SCENE_CHAPTER = "ChapterScene";   //存檔頁面
     public const string SCENE_SETTING = "SettingScene";     //設定頁面
     public const string SCENE_GALLERY = "GalleryScene";     //畫廊頁面
     public const string SCENE_CHARACTER = "CharacterScene";     //角色介紹頁面

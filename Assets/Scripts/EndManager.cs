@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class EndManager : MonoBehaviour
 {
+    public static EndManager Instance { get; private set;} //單例模式
+
+    private void Awake()
+    {
+        if(Instance == null)    //刪除多的單例，如果沒有單例，則自己成為單例
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {

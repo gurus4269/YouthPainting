@@ -26,26 +26,15 @@ public class MenuManager : MonoBehaviour
     }
 
     
-    public void StartGame()//開始新遊戲
+    public void StartGame()//開始新遊戲 **待修改
     {
-        GameMaster.Instance.hasStarted = true; 
         GameMaster.Instance.historyList.Clear();
         GameMaster.Instance.LoadGameScene(0);
         
     }
-
-    public void ContinueGame()  //回到遊戲(繼續)
+    public void Chapter()
     {
-        if(GameMaster.Instance.hasStarted == true)  //若沒有開始過，則禁止進入
-        {
-            GameMaster.Instance.LoadGameScene(GameMaster.Instance.currentSpeakingContentID) ;
-        }
-    }
-    public void LoadGame()  //跳轉到SaveLoadScene
-    {   
-        GameMaster.Instance.hasStarted = true;
-        GameMaster.Instance.isSave = false;
-        GameMaster.Instance.LoadSaveLoadScene();
+        GameMaster.Instance.LoadChapterScene();
     }
     public void Setting()  //跳轉到SaveLoadScene
     {   

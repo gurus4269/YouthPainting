@@ -8,6 +8,19 @@ public class MapManager : MonoBehaviour
     public GameObject DialogPanel;  //對話panel
     public GameObject MapPanel;  //對話panel
     public int serial;  //畫面序號，對應每個panel
+    public static MapManager Instance { get; private set;} //單例模式
+
+    private void Awake()
+    {
+        if(Instance == null)    //刪除多的單例，如果沒有單例，則自己成為單例
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -63,5 +76,10 @@ public class MapManager : MonoBehaviour
         MapPanel.SetActive(false);
         serial = 4;
         ScenarioPanel[serial].SetActive(true);
+    }
+    public void test()
+    {
+        // 透過指令呼叫對話，指定劇本與起始 ID
+        Dialog.Instance.TriggerDialog(Resources.Load<TextAsset>("Text/YouthPaintingChapter1"), 0);
     }
 }
