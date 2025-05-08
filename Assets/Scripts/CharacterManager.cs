@@ -32,62 +32,33 @@ public class CharacterManager : MonoBehaviour
     {
     }
 
-    public void OnclickIntoRed()
+    //進入角色x, 0 => Red, 
+    //          1 => Orange, 
+    //          2 => Yellow, 
+    //          3 => Green, 
+    //          4 => Blue, 
+    //          5 => DarkBlue, 
+    //          6 => Purple
+    public void OnclickIntoCharacter(int num)   
     {
-        serial = 0;
-        characterPanel[0].SetActive(true);
-        All.SetActive(false);
-    } 
-    public void OnclickIntoOrange()
-    {
-        serial = 1;
-        characterPanel[1].SetActive(true);
-        All.SetActive(false);
-    } 
-    public void OnclickIntoYellow()
-    {
-        serial = 2;
-        characterPanel[2].SetActive(true);
-        All.SetActive(false);
-    } 
-    public void OnclickIntoGreen()
-    {
-        serial = 3;
-        characterPanel[3].SetActive(true);
-        All.SetActive(false);
-    } 
-    public void OnclickIntoBlue()
-    {
-        serial = 4;
-        characterPanel[4].SetActive(true);
-        All.SetActive(false);
-    } 
-    public void OnclickIntoDarkBlue()
-    {
-        serial = 5;
-        characterPanel[5].SetActive(true);
-        All.SetActive(false);
-    } 
-    public void OnclickIntoPurple()
-    {
-        serial = 6;
-        characterPanel[6].SetActive(true);
+        serial = num;
+        characterPanel[serial].SetActive(true);
         All.SetActive(false);
     } 
 
-    public void OnclickToNext()
+    public void OnclickToNext() //下一個角色
     {
         characterPanel[serial].SetActive(false);
         serial = ( serial + 1 ) % 7;
         characterPanel[serial].SetActive(true);
     }
-    public void OnclickToPrevious()
+    public void OnclickToPrevious() //上一個角色
     {
         characterPanel[serial].SetActive(false);
         serial = ( serial - 1 ) < 0 ? 6 : ( serial - 1 ) ;
         characterPanel[serial].SetActive(true);
     }
-    public void Return()
+    public void Return()    //上一頁
     {
         if(serial == -1)
         {

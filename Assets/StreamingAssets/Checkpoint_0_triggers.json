@@ -1,0 +1,34 @@
+{
+  "triggers" : [
+    {
+      "Index": 0,
+      "OpenOrClose": 0,
+      "Target": 1,
+      "Key": true
+    },
+    {
+      "Index": 1,
+      "OpenOrClose": 0,
+      "Target": 2,
+      "Key": true
+    },
+    {
+      "Index": 2,
+      "OpenOrClose": 0,
+      "Target": 3,
+      "Key": true
+    },
+    {
+      "Index": 3,
+      "OpenOrClose": 0,
+      "Target": 5,
+      "Key": true
+    },
+    {
+      "Index": 4,
+      "OpenOrClose": 0,
+      "Target": 5,
+      "Key": true
+    }
+  ]
+}

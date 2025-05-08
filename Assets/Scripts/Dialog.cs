@@ -61,6 +61,7 @@ public class Dialog : MonoBehaviour
     }
     void Start()
     {
+        
     }
     // Update is called once per frame
     void Update()
@@ -387,7 +388,7 @@ public class Dialog : MonoBehaviour
             }
         }
     }
-    public void OnclickSpeedUp()
+    public void OnclickSpeedUp()    //點擊加速按鈕
     {
         if(isAutoPlaying)
         {
@@ -413,7 +414,7 @@ public class Dialog : MonoBehaviour
             autoPlayCoroutine = StartCoroutine(AutoPlayRoutine());  //啟動自動播放
         }
     }
-    private IEnumerator AutoPlayRoutine()
+    private IEnumerator AutoPlayRoutine()   //自動撥放協程
     {
         while (true)
         {

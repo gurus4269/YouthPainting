@@ -31,8 +31,14 @@ public class ChapterManager : MonoBehaviour
 
     }
 
-    public void Return()
+    public void Return()    //返回
     {
         GameMaster.Instance.LoadMenuScene();
     }
+
+    public void ChooseData(int _chapterID)  //進入第x章
+    {
+        GameMaster.Instance.currentChapterId = _chapterID;
+        GameMaster.Instance.LoadGameScene();
+   }
 }

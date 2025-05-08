@@ -11,6 +11,8 @@ public class MenuManager : MonoBehaviour
     public Button settingButton;    //Setting按鈕
     public Button exitButton;       //Exit按鈕
 
+    private bool isStart = false;
+
     public static MenuManager Instance { get; private set;} //單例模式
 
     private void Awake()
@@ -26,25 +28,31 @@ public class MenuManager : MonoBehaviour
     }
 
     
-    public void StartGame()//開始新遊戲 **待修改
+    public void StartGame() //開始新遊戲 **待修改
     {
-        GameMaster.Instance.historyList.Clear();
-        GameMaster.Instance.LoadGameScene(0);
-        
+        if(isStart)
+        {
+            GameMaster.Instance.historyList.Clear();
+            GameMaster.Instance.LoadGameScene();
+        }
+        else
+        {
+            GameMaster.Instance.LoadChapterScene();
+        }
     }
-    public void Chapter()
+    public void Chapter()   //進到章節選擇頁面
     {
         GameMaster.Instance.LoadChapterScene();
     }
-    public void Setting()  //跳轉到SaveLoadScene
+    public void Setting()   //跳轉到SaveLoadScene
     {   
         GameMaster.Instance.LoadSettingScene();
     }
-    public void Gallery()  //跳轉到GalleryScene
+    public void Gallery()   //跳轉到GalleryScene
     {   
         GameMaster.Instance.LoadGalleryScene();
     }
-    public void Character()  //跳轉到CharacterScene
+    public void Character() //跳轉到CharacterScene
     {   
         GameMaster.Instance.LoadCharacterScene();
     }
