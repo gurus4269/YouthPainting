@@ -25,9 +25,33 @@
       "Key": true
     },
     {
+      "Index": 3,
+      "OpenOrClose": 1,
+      "Target": 2,
+      "Key": true
+    },
+    {
       "Index": 4,
       "OpenOrClose": 0,
       "Target": 5,
+      "Key": true
+    },
+    {
+      "Index": 4,
+      "OpenOrClose": 1,
+      "Target": 2,
+      "Key": true
+    },
+    {
+      "Index": 5,
+      "OpenOrClose": 1,
+      "Target": 3,
+      "Key": true
+    },
+    {
+      "Index": 5,
+      "OpenOrClose": 1,
+      "Target": 4,
       "Key": true
     }
   ]

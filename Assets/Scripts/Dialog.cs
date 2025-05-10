@@ -194,7 +194,10 @@ public class Dialog : MonoBehaviour
                 {
                     OnclickAutoPlay(); // 自動關閉
                 }
-                GameMaster.Instance.LoadEndScene();
+                
+                gamePanel.SetActive(false);
+                EventManager.Instance.CheckOpen(int.Parse(cells[2]));
+                //GameMaster.Instance.LoadEndScene();
             }
             else if(cells[0] == Constants.WAIT && int .Parse(cells[1]) == dialogIndex) //$等待
             {

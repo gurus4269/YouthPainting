@@ -366,8 +366,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 40, y: 6}
+  m_SizeDelta: {x: -615.32, y: -117.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &44554424
 MonoBehaviour:
@@ -538,8 +538,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -3, y: 13}
+  m_SizeDelta: {x: -208.83, y: -198.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &191286576
 MonoBehaviour:
@@ -934,6 +934,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d5d82959e7f4fb47250566ba2eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapPanels:
+  - {fileID: 1290095890}
+  - {fileID: 2082947464}
+  - {fileID: 1110013109}
+  - {fileID: 195205259}
+  - {fileID: 2121522425}
+  characterGameObject:
+  - {fileID: 305074497}
+  - {fileID: 923948930}
+  - {fileID: 663195080}
+  - {fileID: 1697129956}
+  - {fileID: 1421114508}
+  - {fileID: 1568299253}
+  - {fileID: 1148216233}
 --- !u!4 &238607914
 Transform:
   m_ObjectHideFlags: 0
@@ -1036,7 +1050,7 @@ GameObject:
   - component: {fileID: 305074500}
   - component: {fileID: 305074499}
   m_Layer: 5
-  m_Name: "\u4E5D"
+  m_Name: "\u6FAA\u7460"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1716,13 +1730,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 195205260}
-  - {fileID: 2121522426}
-  - {fileID: 1110013110}
-  - {fileID: 1829608590}
-  - {fileID: 1962704616}
   - {fileID: 1290095891}
   - {fileID: 2082947465}
+  - {fileID: 1110013110}
+  - {fileID: 195205260}
+  - {fileID: 2121522426}
+  - {fileID: 1829608590}
+  - {fileID: 1962704616}
   m_Father: {fileID: 647643617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2044,7 +2058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9528302, g: 0.4809096, b: 0.4809096, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2516,8 +2530,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -2, y: 4}
+  m_SizeDelta: {x: -18.03, y: -134.23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &627801152
 MonoBehaviour:
@@ -2634,7 +2648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &647643617
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2795,7 +2809,7 @@ GameObject:
   - component: {fileID: 663195083}
   - component: {fileID: 663195082}
   m_Layer: 5
-  m_Name: "\u4E5D"
+  m_Name: "\u971E\u4E43"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2840,7 +2854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a659f4fe9f443d84a8a9f476cc15cc3f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7488f7f396dd094ba4427fc8485a2de, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3718,8 +3732,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.5, y: -1.0999985}
+  m_SizeDelta: {x: -135.21, y: -141.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &848384574
 MonoBehaviour:
@@ -3898,7 +3912,7 @@ GameObject:
   - component: {fileID: 923948933}
   - component: {fileID: 923948932}
   m_Layer: 5
-  m_Name: "\u831C"
+  m_Name: "\u8299\u7396"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4869,7 +4883,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1056754001
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5391,7 +5405,7 @@ GameObject:
   - component: {fileID: 1148216234}
   - component: {fileID: 1148216235}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: "\u6821\u9577"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6004,7 +6018,7 @@ GameObject:
   - component: {fileID: 1290095893}
   - component: {fileID: 1290095892}
   m_Layer: 5
-  m_Name: Student Concil Room
+  m_Name: student_concil_room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6472,7 +6486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1436634689
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6529,8 +6543,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -3, y: 4}
+  m_SizeDelta: {x: -281.37, y: -313.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1437938596
 MonoBehaviour:
@@ -6665,8 +6679,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4, y: -4}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 3.199997, y: -1.800003}
+  m_SizeDelta: {x: 25.58, y: -166.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1453664272
 MonoBehaviour:
@@ -6751,7 +6765,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -31.843338, y: 0, z: -14.860329, w: 0}
+  m_margin: {x: 0.34276584, y: 0, z: -0.005142197, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7429,7 +7443,7 @@ GameObject:
   - component: {fileID: 1697129959}
   - component: {fileID: 1697129958}
   m_Layer: 5
-  m_Name: "\u66C9"
+  m_Name: "\u67DA\u5E0C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9206,8 +9220,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -135}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -12, y: -10}
+  m_SizeDelta: {x: -433.15, y: -133.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2132532837
 MonoBehaviour:

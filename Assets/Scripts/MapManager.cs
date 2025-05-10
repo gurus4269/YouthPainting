@@ -25,7 +25,7 @@ public class MapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        serial = 0;
+        serial = 1;
     }
 
     // Update is called once per frame
@@ -57,6 +57,7 @@ public class MapManager : MonoBehaviour
     //進入地圖4 走廊B
     public void OnclickToMapX(int num)     
     {
+        Debug.Log(num);
         ScenarioPanel[serial].SetActive(false);
         MapPanel.SetActive(false);
         serial = num;
@@ -66,6 +67,6 @@ public class MapManager : MonoBehaviour
     public void test()
     {
         // 透過指令呼叫對話，指定劇本與起始 ID
-        Dialog.Instance.TriggerDialog(Resources.Load<TextAsset>("Text/YouthPaintingChapter1"), 0);
+        // Dialog.Instance.TriggerDialog(Resources.Load<TextAsset>("Text/YouthPaintingChapter1"), 0);
     }
 }
