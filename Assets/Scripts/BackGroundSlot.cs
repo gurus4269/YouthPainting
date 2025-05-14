@@ -8,7 +8,8 @@ public class BackGroundSlot : MonoBehaviour
     public Image backgroundImage;
 
     [Header("記憶濾鏡物件")]
-    public GameObject memoryFilter;
+    public GameObject memoryFilterA;    //回憶
+    public GameObject memoryFilterB;    //黑暗
 
     [Header("淡入動畫時間（秒）")]
     public float fadeInTime = 0.3f;
@@ -16,7 +17,7 @@ public class BackGroundSlot : MonoBehaviour
     private Coroutine currentFade;
 
     
-    public void SetBackground(Sprite sprite, bool isMemory = false) // 設定背景圖片，並決定是否開啟記憶濾鏡
+    public void SetBackground(Sprite sprite, int isMemory = 0) // 設定背景圖片，並決定是否開啟記憶濾鏡
     {
         if (backgroundImage == null || sprite == null)  //檢查是否有圖片
         {
@@ -33,11 +34,30 @@ public class BackGroundSlot : MonoBehaviour
         }
         currentFade = StartCoroutine(FadeIn());
 
-        // 控制回憶濾鏡顯示
-        if (memoryFilter != null)
+        if(isMemory == 1)
         {
-            memoryFilter.SetActive(isMemory);
+            if (memoryFilterA != null)
+            {
+                memoryFilterA.SetActive(true);
+                memoryFilterB.SetActive(false);
+            }
         }
+        else if(isMemory == 2)
+        {
+            if (memoryFilterB != null)
+            {
+                memoryFilterB.SetActive(true);
+                memoryFilterA.SetActive(false);
+            }
+        }
+        else    
+        {
+            memoryFilterB.SetActive(false);
+            memoryFilterA.SetActive(false);
+        }
+
+        // 控制回憶濾鏡顯示
+        
     }
 
     
@@ -46,8 +66,10 @@ public class BackGroundSlot : MonoBehaviour
         backgroundImage.sprite = null;
         SetAlpha(0f);
 
-        if (memoryFilter != null)
-            memoryFilter.SetActive(false);
+        if (memoryFilterA != null)
+            memoryFilterA.SetActive(false);
+        if (memoryFilterB != null)
+            memoryFilterB.SetActive(false);
     }
 
     

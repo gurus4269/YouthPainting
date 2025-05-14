@@ -117,7 +117,7 @@ public class Dialog : MonoBehaviour
         
     }
 
-    public void UpdateBackGroundImage(string _bgKey, bool _isMemory = false)    //更新背景
+    public void UpdateBackGroundImage(string _bgKey, int _isMemory = 0)    //更新背景
     {
         if (!backGroundDic.ContainsKey(_bgKey))     //防呆
         {
@@ -174,8 +174,8 @@ public class Dialog : MonoBehaviour
             }
             else if(cells[0] == Constants.BACKGROUND && int.Parse(cells[1]) == dialogIndex) //更改背景
             {
-                string bgKey = cells[6];    //存人物
-                bool isMemory =  bool.Parse(cells[7]);  //存位置
+                string bgKey = cells[2];    //存人物
+                int isMemory =  int.Parse(cells[3]);  //存位置
 
                 leftSlot.Clear();       //清空所有位置上的人
                 middleLeftSlot.Clear();
@@ -196,7 +196,7 @@ public class Dialog : MonoBehaviour
                 }
                 
                 gamePanel.SetActive(false);
-                EventManager.Instance.CheckOpen(int.Parse(cells[2]));
+                EventManager.Instance.CheckOpen(int.Parse(cells[5]));
                 //GameMaster.Instance.LoadEndScene();
             }
             else if(cells[0] == Constants.WAIT && int .Parse(cells[1]) == dialogIndex) //$等待
