@@ -1,0 +1,46 @@
+{
+  "events": [
+    {
+      "Index": 0,
+      "TextName": "開學典禮",
+      "Type": "Auto",
+      "SubType": "",
+      "Lock": 0
+    },
+    {
+      "Index": 1,
+      "TextName": "找班導",
+      "Type": "Button",
+      "SubType": "小泉老師",
+      "Lock": 1
+    },
+    {
+      "Index": 2,
+      "TextName": "校園導覽",
+      "Type": "Scenario",
+      "SubType": "3-A",
+      "Lock": 1
+    },
+    {
+      "Index": 3,
+      "TextName": "調查",
+      "Type": "Button",
+      "SubType": "曉",
+      "Lock": 1
+    },
+    {
+      "Index": 4,
+      "TextName": "作客",
+      "Type": "Scenario",
+      "SubType": "柚希的房間",
+      "Lock": 1
+    },
+    {
+      "Index": 5,
+      "TextName": "蒼依的房間",
+      "Type": "Scenario",
+      "SubType": "3-A",
+      "Lock": 1
+    }
+  ]
+}

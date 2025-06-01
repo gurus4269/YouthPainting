@@ -6,9 +6,10 @@ public class MapManager : MonoBehaviour
 {
     public GameObject[] ScenarioPanel;   //每張地圖Panel的陣列
     public GameObject DialogPanel;  //對話panel(GamePanel)
-    public GameObject MapPanel;  //大地圖panel
+    public GameObject[] MapPanel;  //地圖panel陣列  0 => 大地圖、1 => 學校、2 => 宿舍
     public int serial;  //畫面序號，對應每個panel
-    public static MapManager Instance { get; private set;} //單例模式
+    public int mapNum = -1;  //0 => 大地圖、1 => 學校、2 => 宿舍
+    public static MapManager Instance { get; private set; } //單例模式
 
     private void Awake()
     {
@@ -26,40 +27,60 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         serial = 1;
+        OnclickMap(-1);
+        OnclickToMapX(13);
+        print("A");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnclickMap(int num)    //顯示Map
     {
-
-    }
-
-    public void OnclickMap()    //顯示Map
-    {
-        if(MapPanel.activeSelf)
+        mapNum = num;
+        for (int i = 0; i < MapPanel.Length; i++)
         {
-            MapPanel.SetActive(false);
-        }
-        else
-        {
-            MapPanel.SetActive(true);
+            if (i == mapNum)
+            {
+                MapPanel[i].SetActive(true);
+            }
+            else
+            {
+                MapPanel[i].SetActive(false);
+            }
         }
     }
     public void Return()        //取消顯示Map
     {
-        MapPanel.SetActive(false);
+        if (mapNum != 0)
+        {
+            mapNum = 0;
+            OnclickMap(mapNum);
+        }
+        else
+        {
+            mapNum = -1;
+            OnclickMap(mapNum);
+        }
     }
-    
-    //進入地圖0 學生會辦
-    //進入地圖1 校長室
-    //進入地圖2 3-A
-    //進入地圖3 走廊A
-    //進入地圖4 走廊B
-    public void OnclickToMapX(int num)     
+
+    //進入地圖0 3-A
+    //進入地圖1 3-B
+    //進入地圖2 3-C
+    //進入地圖3 3-D
+    //進入地圖4 走廊
+    //進入地圖5 教師辦公室
+    //進入地圖6 社團教室
+    //進入地圖7 澪瑠的房間
+    //進入地圖8 芙玖的房間
+    //進入地圖9 霞乃的房間
+    //進入地圖10 柚希的房間
+    //進入地圖11 蒼依的房間
+    //進入地圖12 宿舍走廊
+    //進入地圖13 禮堂
+    public void OnclickToMapX(int num)
     {
         Debug.Log(num);
         ScenarioPanel[serial].SetActive(false);
-        MapPanel.SetActive(false);
+        mapNum = -1;
+        OnclickMap(mapNum);
         serial = num;
         ScenarioPanel[serial].SetActive(true);
     }

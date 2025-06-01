@@ -55,11 +55,20 @@ public class EventManager : MonoBehaviour
     void Start()
     {
         //初始化地圖上的按鈕
-        scenarioNum["student_concil_room"] = 0;
-        scenarioNum["principal_room"] = 1;
-        scenarioNum["3-A"] = 2;
-        scenarioNum["hallwayA"] = 3;
-        scenarioNum["hallwayB"] = 4;
+        scenarioNum["3-A"] = 0;
+        scenarioNum["3-B"] = 1;
+        scenarioNum["3-C"] = 2;
+        scenarioNum["3-D"] = 3;
+        scenarioNum["hallway"] = 4;
+        scenarioNum["teachers office"] = 5;
+        scenarioNum["club room"] = 6;
+        scenarioNum["Mioru room"] = 7;
+        scenarioNum["Fuku room"] = 8;
+        scenarioNum["Kasuno room"] = 9;
+        scenarioNum["Yuzuki room"] = 10;
+        scenarioNum["Aoi room"] = 11;
+        scenarioNum["dormitory hallway"] = 12;
+        scenarioNum["hall"] = 13;
         
         //初始化人物的按鈕
         characterNum["澪瑠"] = 0;
@@ -69,6 +78,7 @@ public class EventManager : MonoBehaviour
         characterNum["曉"] = 4;
         characterNum["茜"] = 5;
         characterNum["校長"] = 6;
+        characterNum["小泉老師"] = 7;
 
 
         if (!Directory.Exists(CheckpointFolder))    //檢查檔案路徑，若沒有，則創建
