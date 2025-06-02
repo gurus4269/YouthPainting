@@ -168,8 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentChapterId: 0
-  currentCharacters: []
-  paramFlags: 
   historyList: []
 --- !u!1 &184275558
 GameObject:

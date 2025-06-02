@@ -176,6 +176,7 @@ public class EventManager : MonoBehaviour
                         button = btn,
                         action = action
                     };
+                    //btn.onClick.Invoke();
                 }
             }
             else
@@ -203,6 +204,7 @@ public class EventManager : MonoBehaviour
                         button = btn,
                         action = action
                     };
+                    //btn.onClick.Invoke();
                 }
             }
             else
