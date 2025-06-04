@@ -18,6 +18,7 @@ public class Dialog : MonoBehaviour
     public Transform historyContentGroup;   //放歷史對話預製體的地方
     public BackGroundSlot backgroundSlot;   //背景圖片放置區
     public GameObject settingUI, textUI;    //側邊按鈕, 下方對話框
+    public Button autoPlay, speedPlay;      //自動撥放按鈕、加速按鈕
     public int dialogIndex = Constants.DIALOGINDEX;    //當前的對話行數
 
     public GameObject gamePanel;    //遊戲畫面
@@ -165,6 +166,8 @@ public class Dialog : MonoBehaviour
             }
             else if(cells[0] == Constants.CHOICE && int .Parse(cells[1]) == dialogIndex) //選項
             {
+                autoPlay.interactable = false;
+                speedPlay.interactable = false;
                 next.gameObject.SetActive(false);   //關掉下一步按鈕
                 GenerateChoice(i);  //生成選項1
                 if(isAutoPlaying)   //若正在自動播放，則停止
@@ -196,7 +199,10 @@ public class Dialog : MonoBehaviour
                 }
                 
                 gamePanel.SetActive(false);
-                EventManager.Instance.CheckOpen(int.Parse(cells[5]));
+                if (cells[5] != null)
+                {
+                    EventManager.Instance.CheckOpen(int.Parse(cells[5]));
+                }
                 //GameMaster.Instance.LoadEndScene();
             }
             else if(cells[0] == Constants.WAIT && int .Parse(cells[1]) == dialogIndex) //$等待
@@ -268,7 +274,7 @@ public class Dialog : MonoBehaviour
     public void OnChoiceClick(int _id, string _content)  //選項觸發事件(跳到回答的那行)
     {
         //歷史紀錄部分
-        if(GameMaster.Instance.historyList.Count > Constants.HISTORYLINES)  //如果裡面行數大於設定的數
+        if (GameMaster.Instance.historyList.Count > Constants.HISTORYLINES)  //如果裡面行數大於設定的數
         {
             GameMaster.Instance.historyList.RemoveAt(0);    //移除最前面多餘的
         }
@@ -278,11 +284,13 @@ public class Dialog : MonoBehaviour
 
         dialogIndex = _id;
         ShowDialogRow();
-        for (int i = 0; i < choiceGroup.childCount ; i++)   //消除選項
+        for (int i = 0; i < choiceGroup.childCount; i++)   //消除選項
         {
             Destroy(choiceGroup.GetChild(i).gameObject);
         }
         next.gameObject.SetActive(true);
+        autoPlay.interactable = true;
+        speedPlay.interactable = true;
 
     }
     // public void OptionEffect(string _effect, int _param, string _target) //之後再設計效果
@@ -369,7 +377,7 @@ public class Dialog : MonoBehaviour
         //gamePanel.SetActive(true);
     }
     public void OnclickAutoPlay()  // 點擊自動播放按鈕
-    { 
+    {
         if (!isAutoPlaying) //開啟自動播放
         {
             isSpeedUp = false;
@@ -390,12 +398,13 @@ public class Dialog : MonoBehaviour
                 autoPlayCoroutine = null;           //刪除
             }
         }
+        
     }
     public void OnclickSpeedUp()    //點擊加速按鈕
     {
-        if(isAutoPlaying)
+        if (isAutoPlaying)
         {
-            if(isSpeedUp)
+            if (isSpeedUp)
             {
                 isSpeedUp = false;
                 autoPlaySpeed = Constants.DIALOGSPEEDSLOW;

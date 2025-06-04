@@ -32,14 +32,14 @@
       "Index": 4,
       "TextName": "作客",
       "Type": "Scenario",
-      "SubType": "柚希的房間",
+      "SubType": "Yuzuki room",
       "Lock": 1
     },
     {
       "Index": 5,
-      "TextName": "蒼依的房間",
+      "TextName": "認主",
       "Type": "Scenario",
-      "SubType": "3-A",
+      "SubType": "Aoi room",
       "Lock": 1
     }
   ]

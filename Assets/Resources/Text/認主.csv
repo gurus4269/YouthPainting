@@ -1,5 +1,5 @@
 Flag,ID,Character,Position,Content,Branch,Expression,Effect,EffectNum,Target
-@,0,Soi room,0,,1,,,,
+@,0,Aoi room,0,,1,,,,
 #,1,蒼依,2,(......真的搞砸了......),2,,,,
 #,2,蒼依,2,(真不知道該怎麼辦......),3,,,,
 #,3,蒼依,2,先去洗澡吧。,4,,,,
@@ -96,7 +96,7 @@ Flag,ID,Character,Position,Content,Branch,Expression,Effect,EffectNum,Target
 #,94,澪瑠,5,讓她走！！！,95,,,,
 #,95,柚希,5,怎麼這樣......,96,,,,
 #,96,霞乃,5,......,97,,,,
-@,97,Soi room,0,,98,,,,
+@,97,Aoi room,0,,98,,,,
 #,98,柚希,1,最後在沒有芙玖的情況下還真的贏了......,99,,,,
 #,99,柚希,1,很諷刺吧。,100,,,,
 #,100,蒼依,3,......,101,,,,

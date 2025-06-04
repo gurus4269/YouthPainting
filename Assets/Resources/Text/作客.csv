@@ -1,5 +1,5 @@
 Flag,ID,Character,Position,Content,Branch,Expression,Effect,EffectNum,Target
-@,0,Yuki room,0,,1,,,,
+@,0,Yuzuki room,0,,1,,,,
 #,1,柚希,1,蒼依，你來啦，快進來。,2,,,,
 #,2,蒼依,3,(出現了，極具破壞力的笑容！！！),3,,,,
 #,3,蒼依,3,那我就打擾了喔。,4,,,,
@@ -74,7 +74,7 @@ Flag,ID,Character,Position,Content,Branch,Expression,Effect,EffectNum,Target
 #,72,柚希,5,太......,73,,,,
 #,73,蒼依,5,太？,74,,,,
 #,74,柚希,5,太近了！！！！,75,,,,
-@,75,Yuki room,0,,76,,,,
+@,75,Yuzuki room,0,,76,,,,
 #,76,蒼依,3,(ㄟ......),77,,,,
 #,77,蒼依,3,(我被推開了......),78,,,,
 #,78,柚希,1,給我一點時間好嗎？讓我自己一個人靜一靜。,79,,,,
