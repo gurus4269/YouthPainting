@@ -198,32 +198,48 @@ public class Dialog : MonoBehaviour
                     OnclickAutoPlay(); // 自動關閉
                 }
                 
-                gamePanel.SetActive(false);
-                if (cells[5] != null)
+                if (cells[2] == Constants.END)
+                {
+                    GameMaster.Instance.LoadEndScene();
+                }
+                else if (cells[5] != null)
                 {
                     EventManager.Instance.CheckOpen(int.Parse(cells[5]));
                 }
+                
+                gamePanel.SetActive(false);
                 //GameMaster.Instance.LoadEndScene();
             }
-            else if(cells[0] == Constants.WAIT && int .Parse(cells[1]) == dialogIndex) //$等待
+            else if(cells[0] == Constants.LEAVE && int .Parse(cells[1]) == dialogIndex) //暫時結束
+            {
+                Debug.Log("劇情結束");
+                if(isAutoPlaying)   //若正在自動播放，則停止
+                {
+                    OnclickAutoPlay(); // 自動關閉
+                }
+                
+                gamePanel.SetActive(false);
+                //GameMaster.Instance.LoadEndScene();
+            }
+            else if (cells[0] == Constants.WAIT && int.Parse(cells[1]) == dialogIndex) //$等待
             {
                 Debug.Log("實現等待功能");
                 dialogIndex = int.Parse(cells[5]);  //下一行的序號
                 break;
             }
-            else if(cells[0] == Constants.NARRATION && int .Parse(cells[1]) == dialogIndex) //旁白
+            else if (cells[0] == Constants.NARRATION && int.Parse(cells[1]) == dialogIndex) //旁白
             {
                 UpdateTextOnly(cells[4]);
 
                 //歷史紀錄用
-                if(GameMaster.Instance.historyList.Count > Constants.HISTORYLINES)  //如果裡面行數大於設定的數
+                if (GameMaster.Instance.historyList.Count > Constants.HISTORYLINES)  //如果裡面行數大於設定的數
                 {
                     GameMaster.Instance.historyList.RemoveAt(0);    //移除最前面多餘的
                 }
                 GameMaster.Instance.historyList.Add(cells[4]);
-                if(GameMaster.Instance.historyList.Count >= 2)
+                if (GameMaster.Instance.historyList.Count >= 2)
                 {
-                    if(GameMaster.Instance.historyList[^1] == GameMaster.Instance.historyList[^2])
+                    if (GameMaster.Instance.historyList[^1] == GameMaster.Instance.historyList[^2])
                     {
                         GameMaster.Instance.historyList.RemoveAt(GameMaster.Instance.historyList.Count - 1);  //新增歷史紀錄到list
                     }

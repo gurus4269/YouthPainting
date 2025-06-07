@@ -32,13 +32,11 @@ public class CharacterManager : MonoBehaviour
     {
     }
 
-    //進入角色x, 0 => Red, 
-    //          1 => Orange, 
-    //          2 => Yellow, 
-    //          3 => Green, 
-    //          4 => Blue, 
-    //          5 => DarkBlue, 
-    //          6 => Purple
+    //進入角色x  0 => 澪瑠, 
+    //          1 => 芙玖, 
+    //          2 => 蒼依, 
+    //          3 => 柚希, 
+    //          4 => 霞乃, 
     public void OnclickIntoCharacter(int num)   
     {
         serial = num;
@@ -49,13 +47,13 @@ public class CharacterManager : MonoBehaviour
     public void OnclickToNext() //下一個角色
     {
         characterPanel[serial].SetActive(false);
-        serial = ( serial + 1 ) % 7;
+        serial = ( serial + 1 ) % 5;
         characterPanel[serial].SetActive(true);
     }
     public void OnclickToPrevious() //上一個角色
     {
         characterPanel[serial].SetActive(false);
-        serial = ( serial - 1 ) < 0 ? 6 : ( serial - 1 ) ;
+        serial = ( serial - 1 ) < 0 ? 4 : ( serial - 1 ) ;
         characterPanel[serial].SetActive(true);
     }
     public void Return()    //上一頁

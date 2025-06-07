@@ -12,6 +12,7 @@ public class Constants
     public const string NARRATION = "*";    //旁白
     public const string BACKGROUND = "@";   //更改背景符號
     public const string END = "END";        //結束符號
+    public const string LEAVE = "LEAVE";    //暫時結束符號
 
     //常數
     public const int DIALOGINDEX = 0;   //開始讀取的行數
