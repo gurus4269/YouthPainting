@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 public class ChapterManager : MonoBehaviour
 {
     public static ChapterManager Instance { get; private set;} //單例模式
+    private string CheckpointFolder => Path.Combine(Application.persistentDataPath, Constants.SAVE_FILE_PATH_CHECKPOINT);
 
     private void Awake()
     {
-        if(Instance == null)    //刪除多的單例，如果沒有單例，則自己成為單例
+        if (Instance == null)    //刪除多的單例，如果沒有單例，則自己成為單例
         {
             Instance = this;
         }

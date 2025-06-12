@@ -268,24 +268,28 @@ public class Dialog : MonoBehaviour
     {
         GameMaster.Instance.LoadMenuScene();
     }
+    public void OnclickSetting()   //返回開始畫面
+    {
+        GameMaster.Instance.LoadSettingScene();
+    }
 
     public void GenerateChoice(int _index)  //生成選項
     {
-        string[] cells = dialogRows [_index].Split(',');    //按照逗號分開成每個元素
-        if ( cells[0] == "&")   //確認是選項
+        string[] cells = dialogRows[_index].Split(',');    //按照逗號分開成每個元素
+        if (cells[0] == "&")   //確認是選項
         {
             GameObject button = Instantiate(choice, choiceGroup);   //將選項預製體加入到選項群組中
             button.GetComponentInChildren<TMP_Text>().text = cells[4];   //給選項添加文字
             button.GetComponent<Button>().onClick.AddListener   //給選項添加觸發事件
                 (
-                    delegate 
-                    { 
+                    delegate
+                    {
                         OnChoiceClick(int.Parse(cells[5]), cells[4]);
-                    } 
-                );    
-            GenerateChoice( _index + 1 );
+                    }
+                );
+            GenerateChoice(_index + 1);
         }
-        
+
     }
     public void OnChoiceClick(int _id, string _content)  //選項觸發事件(跳到回答的那行)
     {
@@ -388,7 +392,7 @@ public class Dialog : MonoBehaviour
 
     }
     public void BackToGameScene()  //返回DialogPanel
-    { 
+    {
         historyPanel.SetActive(false);
         //gamePanel.SetActive(true);
     }
