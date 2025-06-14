@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
-    public int currentChapterId;    //當前章節ID
     public List<string> historyList = new List<string>();   //前X行的歷史紀錄
 
     private string autosavePath;//存檔路徑（Checkpoint 與 Autosave 的資料夾）
@@ -19,7 +18,6 @@ public class GameMaster : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {

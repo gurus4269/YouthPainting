@@ -5,7 +5,10 @@
       "TextName": "背叛",
       "Type": "Auto",
       "SubType": "",
-      "Lock": 0
+      "OpenLock": 0,
+      "KeyCount":0,
+      "NowTriggered":"false",
+      "CloseLock":"false"
     }
   ]
 }

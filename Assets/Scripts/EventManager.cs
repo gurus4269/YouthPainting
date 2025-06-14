@@ -3,6 +3,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using UnityEngine.UI;
+using JetBrains.Annotations;
 
 public class EventManager : MonoBehaviour
 {//*****寫備註*****///
@@ -12,24 +13,11 @@ public class EventManager : MonoBehaviour
         public UnityEngine.Events.UnityAction action;
     }
 
-    //存在Assset中的checkpoint_event檔
-    private string src_event => Path.Combine(Application.streamingAssetsPath, $"{Constants.SAVE_FILE_EVENT_AND_TRIGGER_PART1}{GameMaster.Instance.currentChapterId.ToString()}{Constants.SAVE_FILE_EVENT_PART2}");   
-    
-    //存在Assset中的checkpoint_trigger檔
-    private string src_trigger => Path.Combine(Application.streamingAssetsPath, $"{Constants.SAVE_FILE_EVENT_AND_TRIGGER_PART1}{GameMaster.Instance.currentChapterId.ToString()}{Constants.SAVE_FILE_TRIGGER_PART2}");   
-    
-    //放checkpoint的資料夾路徑(在存檔處)
-    private string CheckpointFolder => Path.Combine(Application.persistentDataPath, Constants.SAVE_FILE_PATH_CHECKPOINT);   
-    
-    private string EventJsonPath => Path.Combine(   //第X章的event檔的路徑(在存檔處)
-        CheckpointFolder,
-        $"{Constants.SAVE_FILE_EVENT_AND_TRIGGER_PART1}{GameMaster.Instance.currentChapterId.ToString()}{Constants.SAVE_FILE_EVENT_PART2}"
-    );
-
-    private string TriggerJsonPath => Path.Combine( //第X章的trigger檔的路徑(在存檔處)
-        CheckpointFolder,
-        $"{Constants.SAVE_FILE_EVENT_AND_TRIGGER_PART1}{GameMaster.Instance.currentChapterId.ToString()}{Constants.SAVE_FILE_TRIGGER_PART2}"
-    );
+    public string CheckpointFolder;
+    public string EventJsonPath;
+    public string TriggerJsonPath;
+    public string srcEvent;
+    public string srcTrigger; 
 
     private Dictionary<string, int> scenarioNum = new Dictionary<string, int>();    //地圖字典
     public List<GameObject> mapPanels = new List<GameObject>();                     //地圖list，兩個合在一起才有用
@@ -39,11 +27,11 @@ public class EventManager : MonoBehaviour
     private Dictionary<int, ButtonListenerInfo> buttonListeners = new Dictionary<int, ButtonListenerInfo>();    //按鈕上的event字典
 
     private List<TriggerData> triggers = new List<TriggerData>();                   //trigger list(trigger的index不唯一，所以不能用字典)
-    public static EventManager Instance { get; private set;} //單例模式
+    public static EventManager Instance { get; private set; } //單例模式
     void Awake()
     {
         //確認只有一個實例，多的刪掉
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -69,7 +57,7 @@ public class EventManager : MonoBehaviour
         scenarioNum["Aoi room"] = 11;
         scenarioNum["dormitory hallway"] = 12;
         scenarioNum["hall"] = 13;
-        
+
         //初始化人物的按鈕
         characterNum["澪瑠"] = 0;
         characterNum["芙玖"] = 1;
@@ -81,30 +69,41 @@ public class EventManager : MonoBehaviour
         characterNum["小泉老師"] = 7;
 
 
-        if (!Directory.Exists(CheckpointFolder))    //檢查檔案路徑，若沒有，則創建
+        srcEvent = GetSrcEventPath();
+        srcTrigger = GetSrcTriggerPath();
+        CheckpointFolder = GetCheckpointFolder();
+        EventJsonPath = GetEventJsonPath();
+        TriggerJsonPath = GetTriggerJsonPath();
+        Debug.Log(EventJsonPath);
+
+        // 建立存檔資料夾
+        if (!Directory.Exists(CheckpointFolder))
         {
             Directory.CreateDirectory(CheckpointFolder);
         }
 
-
-        if (!File.Exists(EventJsonPath))    //初始化(把檔案放到存檔處)
+        // 複製 event 檔案
+        if (!File.Exists(EventJsonPath))
         {
             Directory.CreateDirectory(Path.GetDirectoryName(EventJsonPath));
-            File.Copy(src_event, EventJsonPath);
+            File.Copy(srcEvent, EventJsonPath);
+            Debug.Log("已複製事件檔案到存檔資料夾。");
         }
+
+        // 複製 trigger 檔案
         if (!File.Exists(TriggerJsonPath))
         {
             Directory.CreateDirectory(Path.GetDirectoryName(TriggerJsonPath));
-            File.Copy(src_trigger, TriggerJsonPath);
+            File.Copy(srcTrigger, TriggerJsonPath);
+            Debug.Log("已複製觸發器檔案到存檔資料夾。");
         }
 
-        
         LoadEvents();       // 載入事件資料
         LoadTriggers();     // 載入觸發條件
-        TryTriggerEvents(); // 啟動所有 Lock 為 0 的事件
+        TryTriggerEvents(); // 啟動所有 OpenLock 為 0 的事件
     }
 
-    
+
     void LoadEvents()   // 載入事件資料
     {
         if (!File.Exists(EventJsonPath))    //檢查檔案是否存在
@@ -130,7 +129,7 @@ public class EventManager : MonoBehaviour
         }
 
         string json = File.ReadAllText(TriggerJsonPath);                //讀檔
-        TriggerList list = JsonUtility.FromJson<TriggerList>(json);     
+        TriggerList list = JsonUtility.FromJson<TriggerList>(json);
         triggers = list.triggers;                                       //放入trigger list
     }
 
@@ -139,22 +138,21 @@ public class EventManager : MonoBehaviour
         if (!events.ContainsKey(index)) //檢查事件是否存在於字典中
         {
             return;
-        } 
-
-        var evt = events[index];        //檢查是否被已經被觸發
-        if (evt.Triggered) 
-        {
-            return;
         }
 
+        var evt = events[index];        //檢查是否被已經被觸發
+
+        // SaveEventsAndTriggers();//先做存檔
         Debug.Log($"[觸發事件] {evt.Index}: {evt.TextName}");
-        evt.Triggered = true;   //標記為已被觸發
+
+        //evt.NowTriggered = true;   //標記為已被觸發
 
         TextAsset textAsset = Resources.Load<TextAsset>($"Text/{evt.TextName}");//讀劇本
 
         if (evt.Type == "Auto")     //用作要被立刻觸發的對話(開頭、結束、滿足某條件後)，只會執行一次，不用刪事件
         {
             Dialog.Instance.TriggerDialog(textAsset, 0);
+            //evt.CloseLock = true;   //標記為已被觸發
         }
         else if (evt.Type == "Scenario")    //用作進入場景後的對話，執行完後需立即刪除
         {
@@ -163,7 +161,7 @@ public class EventManager : MonoBehaviour
             {
                 var btn = scenarioObj.GetComponent<UnityEngine.UI.Button>();    //找到該物件上的按鈕屬性
                 if (btn == null)                                                //如果本身沒有添加按鈕屬性
-                {                                   
+                {
                     btn = scenarioObj.AddComponent<UnityEngine.UI.Button>();    //就賦予他一個
                 }
 
@@ -211,59 +209,133 @@ public class EventManager : MonoBehaviour
             {
                 Debug.LogWarning($"找不到對應的 Button 元件：{evt.SubType}");
             }
-        }     
+        }
+        SaveEventsAndTriggers();    //存檔
     }
 
-    void TryTriggerEvents()     // 觸發所有初始事件（Lock == 0）
+    void TryTriggerEvents()     // 觸發所有初始事件（OpenLock == 0）
     {
         foreach (var e in events.Values)
         {
-            if (e.Lock == 0 && !e.Triggered)
+            if (e.OpenLock == e.KeyCount && !e.CloseLock)
             {
-                ActivateEvent(e.Index);                
+                ActivateEvent(e.Index);
             }
         }
     }
 
 
-    public void CheckOpen(int _index)//處理連鎖觸發
+    public void CheckOpen(int _index)   //開鎖OR上鎖
     {
-        Debug.Log("開鎖");
-        foreach (var t in triggers.Where(t => t.Index == _index ))  //尋找所有triggers，來源為此事件的
+        foreach (var t in triggers.Where(t => t.Index == _index))  //尋找所有triggers，來源為此事件的
         {
-            if(t.OpenOrClose == 0)  //開鎖部分
+            if (t.OpenOrClose == 0)  //開鎖部分
             {
+                Debug.Log("開鎖");
                 if (events.TryGetValue(t.Target, out var target))
                 {
                     if (t.Key)  //開鎖
                     {
                         target.KeyCount++;
-                        t.Key = false;
+                        t.Key = false;  //這邊要寫回
                     }
 
-                    if (target.KeyCount >= target.Lock) //檢查被開鎖的
+                    if (target.KeyCount >= target.OpenLock) //檢查被開鎖的
                     {
                         ActivateEvent(target.Index);
                     }
                 }
             }
-            else if(t.OpenOrClose == 1) //上鎖部分
+            else if (t.OpenOrClose == 1) //上鎖部分
             {
+
                 if (events.TryGetValue(t.Target, out var target))
                 {
-                    RemoveButtonListener(target.Index);  //移除事件
+                    if (t.Key)  //開鎖
+                    {
+                        Debug.Log("上鎖");
+                        RemoveButtonListener(target.Index);  //移除事件
+                        t.Key = false;  //這邊要寫回
+                    }
                 }
             }
+            SaveEventsAndTriggers();    //存檔
         }
     }
 
-    public void RemoveButtonListener(int eventIndex)
+    public void RemoveButtonListener(int eventIndex)    //移除按鈕監聽事件
     {
+        events[eventIndex].CloseLock = true;
         if (buttonListeners.TryGetValue(eventIndex, out var info) && info.button != null)
         {
+            SaveEventsAndTriggers();    //存檔
             info.button.onClick.RemoveListener(info.action);
             buttonListeners.Remove(eventIndex);
             Debug.Log($"移除了按鈕事件：事件 index = {eventIndex}");
         }
     }
+
+    public void SaveEventsAndTriggers() //存檔
+    {
+        // 儲存 Events
+        EventList eventList = new EventList
+        {
+            events = events.Values.ToList()
+        };
+        string eventJson = JsonUtility.ToJson(eventList, true); // 排版美化
+        File.WriteAllText(EventJsonPath, eventJson);
+        Debug.Log($"事件已儲存到：{EventJsonPath}");
+
+        // 儲存 Triggers
+        TriggerList triggerList = new TriggerList
+        {
+            triggers = triggers
+        };
+        string triggerJson = JsonUtility.ToJson(triggerList, true);
+        File.WriteAllText(TriggerJsonPath, triggerJson);
+        Debug.Log($"觸發器已儲存到：{TriggerJsonPath}");
+    }
+
+    //以下是路徑
+    private string GetSrcEventPath()    //存在Assset中的checkpoint_event檔
+    {
+        return Path.Combine(
+            Application.streamingAssetsPath,
+            $"{Constants.SAVE_FILE_EVENT_AND_TRIGGER_PART1}{Constants.CURRENT_CHPATER_ID}{Constants.SAVE_FILE_EVENT_PART2}"
+        );
+    }
+
+    private string GetSrcTriggerPath()  //存在Assset中的checkpoint_trigger檔
+    {
+        return Path.Combine(
+            Application.streamingAssetsPath,
+            $"{Constants.SAVE_FILE_EVENT_AND_TRIGGER_PART1}{Constants.CURRENT_CHPATER_ID}{Constants.SAVE_FILE_TRIGGER_PART2}"
+        );
+    }
+
+    private string GetCheckpointFolder()    //放checkpoint的資料夾路徑(在存檔處)
+    {
+        return Path.Combine(
+            Application.persistentDataPath,
+            Constants.SAVE_FILE_PATH_CHECKPOINT
+        );
+    }
+
+    private string GetEventJsonPath()       //第X章的event檔的路徑(在存檔處)
+    {
+        return Path.Combine(
+            GetCheckpointFolder(),
+            $"{Constants.SAVE_FILE_EVENT_AND_TRIGGER_PART1}{Constants.CURRENT_CHPATER_ID}{Constants.SAVE_FILE_EVENT_PART2}"
+        );
+    }
+
+    private string GetTriggerJsonPath()     //第X章的trigger檔的路徑(在存檔處)
+    {
+        return Path.Combine(
+            GetCheckpointFolder(),
+            $"{Constants.SAVE_FILE_EVENT_AND_TRIGGER_PART1}{Constants.CURRENT_CHPATER_ID}{Constants.SAVE_FILE_TRIGGER_PART2}"
+        );
+    }
+
 }
+

@@ -34,7 +34,7 @@ public class Dialog : MonoBehaviour
     private Dictionary<string, Sprite> backGroundDic= new Dictionary<string, Sprite>();  //背景圖片字典
     private string[] dialogRows;    //按照行分開的文件
 
-    public static Dialog Instance { get; private set;} //單例模式
+    public static Dialog Instance { get; private set;} //單例模式，跨場景保存
 
     private void Awake() 
     {
@@ -48,9 +48,9 @@ public class Dialog : MonoBehaviour
         positionSlots[2] = middleSlot;
         positionSlots[3] = middleRightSlot;
         positionSlots[4] = rightSlot;
-        
+
         //確認只有一個實例，多的刪掉
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }

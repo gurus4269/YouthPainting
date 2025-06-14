@@ -39,7 +39,7 @@ public class ChapterManager : MonoBehaviour
 
     public void ChooseData(int _chapterID)  //進入第x章
     {
-        GameMaster.Instance.currentChapterId = _chapterID;
+        Constants.CURRENT_CHPATER_ID = _chapterID;
         GameMaster.Instance.LoadGameScene();
-   }
+    }
 }

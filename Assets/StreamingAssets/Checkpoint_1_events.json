@@ -5,42 +5,54 @@
       "TextName": "開學典禮",
       "Type": "Auto",
       "SubType": "",
-      "Lock": 0
+      "OpenLock": 0,
+      "KeyCount":0,
+      "CloseLock":"false"
     },
     {
       "Index": 1,
       "TextName": "找班導",
       "Type": "Button",
       "SubType": "小泉老師",
-      "Lock": 1
+      "OpenLock": 1,
+      "KeyCount":0,
+      "CloseLock":"false"
     },
     {
       "Index": 2,
       "TextName": "校園導覽",
       "Type": "Scenario",
       "SubType": "3-A",
-      "Lock": 1
+      "OpenLock": 1,
+      "KeyCount":0,
+      "CloseLock":"false"
     },
     {
       "Index": 3,
       "TextName": "調查",
       "Type": "Button",
       "SubType": "曉",
-      "Lock": 1
+      "OpenLock": 1,
+      "KeyCount":0,
+      "CloseLock":"false"
     },
     {
       "Index": 4,
       "TextName": "作客",
       "Type": "Scenario",
       "SubType": "Yuzuki room",
-      "Lock": 1
+      "OpenLock": 1,
+      "KeyCount":0,
+      "CloseLock":"false"
     },
     {
       "Index": 5,
       "TextName": "認主",
       "Type": "Scenario",
       "SubType": "Aoi room",
-      "Lock": 1
+      "OpenLock": 1,
+      "KeyCount":0,
+      "CloseLock":"false"
     }
   ]
 }

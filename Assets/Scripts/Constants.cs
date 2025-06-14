@@ -27,6 +27,7 @@ public class Constants
     public const string SAVE_FILE_EVENT_AND_TRIGGER_PART1 = "Checkpoint_";  //固定存檔的檔案名稱part1
     public const string SAVE_FILE_EVENT_PART2 = "_events.json";             //固定存檔的檔案名稱part2 event部分(完整檔名Checkpoint_數字_events.json)
     public const string SAVE_FILE_TRIGGER_PART2 = "_triggers.json";         //固定存檔的檔案名稱part2 trigger部分(完整檔名Checkpoint_數字_triggers.json)
+    public static int CURRENT_CHPATER_ID = 0;    //當前章節ID
 
     //UI文字
     public const string SAVE_TITLE = "SAVE";    //儲存字樣
