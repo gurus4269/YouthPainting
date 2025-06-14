@@ -26,7 +26,7 @@ public class GameMaster : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
     //以下為切換Scene
@@ -37,14 +37,15 @@ public class GameMaster : MonoBehaviour
     public void LoadMenuScene()     //-> Menu      Home按鈕用
     {
         SceneManager.LoadScene(Constants.SCENE_MENU);
-    } 
+    }
     public void LoadSettingScene()     //-> Setting      Home按鈕用
     {
         SceneManager.LoadScene(Constants.SCENE_SETTING);
     }
-    public void LoadGalleryScene()     //-> Gallery     Home按鈕用
+    public void LoadGalleryScene()     //-> 暫時轉到ComingSoon(Gallery)     Home按鈕用
     {
-        SceneManager.LoadScene(Constants.SCENE_GALLERY);
+        //SceneManager.LoadScene(Constants.SCENE_GALLERY);
+        LoadComingSoonScene();
     }
     public void LoadCharacterScene()     //-> Character    Home按鈕用
     {
@@ -57,6 +58,10 @@ public class GameMaster : MonoBehaviour
     public void LoadEndScene()     //-> End     
     {
         SceneManager.LoadScene(Constants.SCENE_END);
+    }
+    public void LoadComingSoonScene()     //-> ComingSoon
+    {
+        SceneManager.LoadScene(Constants.SCENE_COMING_SOON);
     }
 
 }

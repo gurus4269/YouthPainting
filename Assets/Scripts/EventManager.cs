@@ -17,7 +17,7 @@ public class EventManager : MonoBehaviour
     public string EventJsonPath;
     public string TriggerJsonPath;
     public string srcEvent;
-    public string srcTrigger; 
+    public string srcTrigger;
 
     private Dictionary<string, int> scenarioNum = new Dictionary<string, int>();    //地圖字典
     public List<GameObject> mapPanels = new List<GameObject>();                     //地圖list，兩個合在一起才有用
@@ -337,5 +337,31 @@ public class EventManager : MonoBehaviour
         );
     }
 
+    public void DeleteCheckPoint()
+    {
+        string eventFile = GetEventJsonPath();      //event的存檔
+        string triggerFile = GetTriggerJsonPath();  //trigger的存檔
+
+        if (File.Exists(eventFile))         // event 檢查，有的畫刪除，沒有的話報錯
+        {
+            File.Delete(eventFile);
+            Debug.Log("存檔已刪除：" + eventFile);
+        }
+        else
+        {
+            Debug.LogWarning("找不到要刪除的存檔：" + eventFile);
+        }
+
+        if (File.Exists(triggerFile))       // trigger 檢查，有的畫刪除，沒有的話報錯
+        {
+            File.Delete(triggerFile);
+            Debug.Log("存檔已刪除：" + triggerFile);
+        }
+        else
+        {
+            Debug.LogWarning("找不到要刪除的存檔：" + triggerFile);
+        }
+
+    }
 }
 

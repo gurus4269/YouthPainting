@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ChapterManager : MonoBehaviour
 {
-    public static ChapterManager Instance { get; private set;} //單例模式
+    public static ChapterManager Instance { get; private set; } //單例模式
     private string CheckpointFolder => Path.Combine(Application.persistentDataPath, Constants.SAVE_FILE_PATH_CHECKPOINT);
+    private Dictionary<int, ChapterData> chapters = new Dictionary<int, ChapterData>();   //event字典
+    public List<GameObject> lockList = new List<GameObject>();   //每個章節的鎖
+    public List<Button> chapterButton = new List<Button>();     //每個章節按鈕
 
     private void Awake()
     {
@@ -23,7 +28,7 @@ public class ChapterManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        CheckChapter();
     }
 
     // Update is called once per frame
@@ -41,5 +46,65 @@ public class ChapterManager : MonoBehaviour
     {
         Constants.CURRENT_CHPATER_ID = _chapterID;
         GameMaster.Instance.LoadGameScene();
+    }
+
+    private string GetFolder()  //放checkpoint的資料夾路徑(在存檔處)
+    {
+        return Path.Combine(
+            Application.persistentDataPath,
+            Constants.SAVE_FILE_PATH_CHECKPOINT,
+            $"{Constants.CHAPTER_CHECK}"
+        );
+    }
+    void LoadChapters()   // 載入章節資料
+    {
+        string chapterChecks = GetFolder();
+        if (!File.Exists(chapterChecks))    //檢查檔案是否存在
+        {
+            Debug.LogWarning("事件 JSON 檔案不存在：" + chapterChecks);
+            return;
+        }
+
+        string json = File.ReadAllText(chapterChecks);              //讀檔
+        ChapterList list = JsonUtility.FromJson<ChapterList>(json);     //
+        foreach (var c in list.chapters)                              //放入字典
+        {
+            chapters[c.Index] = c;
+        }
+    }
+
+    public void CheckChapter()  //如果尚未開放，則設為設為不可點擊;若開放，則隱藏鎖
+    {
+        LoadChapters();
+        foreach (var c in chapters.Values)
+        {
+            if (c.Lock == false)
+            {
+                lockList[c.Index].SetActive(false);
+            }
+            else
+            {
+                chapterButton[c.Index].interactable = false;
+            }
+        }
+    }
+    public void unlock(int chapter) //解鎖下一章
+    {
+        chapters[chapter].Lock = false;
+
+
+        string chapteraddress = GetFolder();
+        ChapterList chapterList = new ChapterList
+        {
+            chapters = chapters.Values.ToList()
+        };
+        string eventJson = JsonUtility.ToJson(chapterList, true); // 排版美化
+        File.WriteAllText(chapteraddress, eventJson);
+        Debug.Log($"事件已儲存到：{chapteraddress}");
+    }
+
+    public void ComingSoon()    //跳到ComingSoon頁面
+    {
+        GameMaster.Instance.LoadComingSoonScene();
     }
 }

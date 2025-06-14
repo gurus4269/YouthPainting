@@ -1996,6 +1996,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d5d82959e7f4fb47250566ba2eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CheckpointFolder: 
+  EventJsonPath: 
+  TriggerJsonPath: 
+  srcEvent: 
+  srcTrigger: 
   mapPanels:
   - {fileID: 1290095890}
   - {fileID: 758050815}
@@ -6370,7 +6375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5688351b24213046889457a5e40e578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentChapterId: 0
   historyList: []
 --- !u!1 &774878805
 GameObject:
@@ -8048,7 +8052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14862,7 +14866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1581635710593187842, guid: d5ec5f452b37e5042a041d38b3cfe8ac, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -113.485
+      value: -113.485016
       objectReference: {fileID: 0}
     - target: {fileID: 1581635710593187842, guid: d5ec5f452b37e5042a041d38b3cfe8ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

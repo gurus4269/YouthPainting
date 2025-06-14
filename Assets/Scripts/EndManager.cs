@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EndManager : MonoBehaviour
 {
+    //public List<GameObject> mode = new List<GameObject>();  //可替換畫面
     public static EndManager Instance { get; private set; } //單例模式
 
     private void Awake()

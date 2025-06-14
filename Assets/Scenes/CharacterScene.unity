@@ -1282,7 +1282,7 @@ GameObject:
   - component: {fileID: 165761025}
   - component: {fileID: 165761024}
   m_Layer: 5
-  m_Name: Name (4)
+  m_Name: Birthday
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4038,7 +4038,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5688351b24213046889457a5e40e578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentChapterId: 0
   historyList: []
 --- !u!1 &785850637
 GameObject:
@@ -7408,7 +7407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1535711057
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7760,7 +7759,7 @@ GameObject:
   - component: {fileID: 1574694453}
   - component: {fileID: 1574694452}
   m_Layer: 5
-  m_Name: Name (3)
+  m_Name: Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9589,7 +9588,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u831C"
+  m_text: "\u6FAA\u7460"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1239babdf4f4d484285749ca32114d1e, type: 2}
   m_sharedMaterial: {fileID: -2035388446390116565, guid: 1239babdf4f4d484285749ca32114d1e, type: 2}
@@ -9885,7 +9884,7 @@ GameObject:
   - component: {fileID: 1936181481}
   - component: {fileID: 1936181480}
   m_Layer: 5
-  m_Name: Name (1)
+  m_Name: Age
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10151,7 +10150,7 @@ GameObject:
   - component: {fileID: 2003827437}
   - component: {fileID: 2003827436}
   m_Layer: 5
-  m_Name: Name (5)
+  m_Name: Zodiac sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10605,7 +10604,7 @@ GameObject:
   - component: {fileID: 2077738463}
   - component: {fileID: 2077738462}
   m_Layer: 5
-  m_Name: Name (2)
+  m_Name: Grade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

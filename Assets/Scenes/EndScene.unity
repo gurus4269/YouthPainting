@@ -515,7 +515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5688351b24213046889457a5e40e578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentChapterId: 0
   historyList: []
 --- !u!1 &849374175
 GameObject:

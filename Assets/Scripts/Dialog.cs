@@ -62,7 +62,7 @@ public class Dialog : MonoBehaviour
     }
     void Start()
     {
-        
+        //EnterHistoryPanel();
     }
     // Update is called once per frame
     void Update()
@@ -197,10 +197,12 @@ public class Dialog : MonoBehaviour
                 {
                     OnclickAutoPlay(); // 自動關閉
                 }
-                
+
                 if (cells[2] == Constants.END)
                 {
                     GameMaster.Instance.LoadEndScene();
+                    ChapterManager.Instance.unlock(int.Parse(cells[5]));
+                    EventManager.Instance.DeleteCheckPoint();
                 }
                 else if (cells[5] != null)
                 {

@@ -1,0 +1,16 @@
+{
+  "chapters": [
+    {
+      "Index": 0,
+      "Lock":false
+    },
+    {
+      "Index": 1,
+      "Lock":true
+    },
+    {
+      "Index": 2,
+      "Lock":true
+    }
+  ]
+}
