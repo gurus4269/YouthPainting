@@ -315,10 +315,7 @@ public class EventManager : MonoBehaviour
 
     private string GetCheckpointFolder()    //放checkpoint的資料夾路徑(在存檔處)
     {
-        return Path.Combine(
-            Application.persistentDataPath,
-            Constants.SAVE_FILE_PATH_CHECKPOINT
-        );
+        return Application.persistentDataPath;
     }
 
     private string GetEventJsonPath()       //第X章的event檔的路徑(在存檔處)

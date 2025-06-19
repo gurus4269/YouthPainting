@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class ChapterManager : MonoBehaviour
 {
     public static ChapterManager Instance { get; private set; } //單例模式
-    private string CheckpointFolder => Path.Combine(Application.persistentDataPath, Constants.SAVE_FILE_PATH_CHECKPOINT);
+    //private string CheckpointFolder => Path.Combine(Application.persistentDataPath, Constants.SAVE_FILE_PATH_CHECKPOINT);
     private Dictionary<int, ChapterData> chapters = new Dictionary<int, ChapterData>();   //event字典
     public List<GameObject> lockList = new List<GameObject>();   //每個章節的鎖
     public List<Button> chapterButton = new List<Button>();     //每個章節按鈕
@@ -28,7 +28,8 @@ public class ChapterManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CheckChapter();
+        LoadChapters();     // 載入章節存檔資料
+        CheckChapter();     // 檢查lock
     }
 
     // Update is called once per frame
@@ -48,11 +49,17 @@ public class ChapterManager : MonoBehaviour
         GameMaster.Instance.LoadGameScene();
     }
 
-    private string GetFolder()  //放checkpoint的資料夾路徑(在存檔處)
+    private string GetFolder()  //放chapterCheck的資料夾路徑(在存檔處)
     {
         return Path.Combine(
             Application.persistentDataPath,
-            Constants.SAVE_FILE_PATH_CHECKPOINT,
+            $"{Constants.CHAPTER_CHECK}"
+        );
+    }
+    private string GetChapterCheckPath()    //存在Assset中的chapterCheck檔
+    {
+        return Path.Combine(
+            Application.streamingAssetsPath,
             $"{Constants.CHAPTER_CHECK}"
         );
     }
@@ -61,8 +68,12 @@ public class ChapterManager : MonoBehaviour
         string chapterChecks = GetFolder();
         if (!File.Exists(chapterChecks))    //檢查檔案是否存在
         {
-            Debug.LogWarning("事件 JSON 檔案不存在：" + chapterChecks);
-            return;
+            string streamingAssets = GetChapterCheckPath();
+
+            Directory.CreateDirectory(Path.GetDirectoryName(chapterChecks));
+            File.Copy(streamingAssets, chapterChecks);
+
+            //return;
         }
 
         string json = File.ReadAllText(chapterChecks);              //讀檔
@@ -75,7 +86,6 @@ public class ChapterManager : MonoBehaviour
 
     public void CheckChapter()  //如果尚未開放，則設為設為不可點擊;若開放，則隱藏鎖
     {
-        LoadChapters();
         foreach (var c in chapters.Values)
         {
             if (c.Lock == false)
